@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const router = require('express').Router();
 const pool = require('../db');
 const bcrypt = require('bcrypt');
+const jwtGeneratorFunc = require('../util/jwtGenerator');
 router.post('/register', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const { name, email, password } = req.body;
@@ -21,12 +22,18 @@ router.post('/register', (req, res) => __awaiter(this, void 0, void 0, function*
         const salt = yield bcrypt.genSalt(numSalts);
         const bcryptPassword = yield bcrypt.hash(password, salt);
         const newUser = yield pool.query("INSERT INTO users (user_name, user_email, user_password) VALUES ($1,$2,$3) RETURNING *", [name, email, bcryptPassword]);
-        res.json(newUser.rows[0]);
+        const token = jwtGeneratorFunc(newUser.rows[0].user_id);
+        res.json({ token });
     }
     catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
     }
 }));
+// router.post("/login", async (req, res) => {
+//     try{
+//     } catch{
+//     }
+// })
 module.exports = router;
 //# sourceMappingURL=jwtAuth.js.map
