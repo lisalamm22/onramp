@@ -11,7 +11,9 @@ const router = require('express').Router();
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 const jwtGeneratorFunc = require('../util/jwtGenerator');
-router.post('/register', (req, res) => __awaiter(this, void 0, void 0, function* () {
+const validate = require("../middleware/validate");
+const authorize = require("../middleware/authorization");
+router.post('/register', validate, (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const { name, email, password } = req.body;
         const user = yield pool.query(" SELECT * FROM users WHERE user_email = $1", [email]);
@@ -30,7 +32,7 @@ router.post('/register', (req, res) => __awaiter(this, void 0, void 0, function*
         res.status(500).send("Server Error");
     }
 }));
-router.post("/login", (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.post("/login", validate, (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
         const user = yield pool.query("SELECT * FROM users WHERE user_email = $1", [email]);
@@ -43,6 +45,15 @@ router.post("/login", (req, res) => __awaiter(this, void 0, void 0, function* ()
         }
         const token = jwtGeneratorFunc(user.rows[0].user_id);
         res.json({ token });
+    }
+    catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+}));
+router.get("/verify", authorize, (req, res) => __awaiter(this, void 0, void 0, function* () {
+    try {
+        res.json(true);
     }
     catch (err) {
         console.error(err.message);
