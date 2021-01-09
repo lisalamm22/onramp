@@ -8,6 +8,8 @@ const db = require("./db")
 
 var app = express();
 const port = 8080;
+
+//MIDDLEWARE//
 app.use(logger('dev'));
 app.use(cors())
 app.use(express.json());
@@ -15,9 +17,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('view engine', 'html');
 
+
+//ROUTES//
 app.get('/api', (req, res) => {
   res.send(`${new Date()}`);
 });
+
+app.use('/auth', require('./routes/jwtAuth'))
 
 app.get('/api/users', async (req, res) => {
   // res.send(['Aang', 'Katara', 'Momo', 'Sokka', 'Appa']);
