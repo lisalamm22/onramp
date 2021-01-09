@@ -1,9 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import Button from '@material-ui/core/Button'
 
 function App() {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = React.useState<any|null>(null);
 
   const getData = () => {
     fetch('/api')
@@ -13,7 +14,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <Button>HELLO WORLD</Button>
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
