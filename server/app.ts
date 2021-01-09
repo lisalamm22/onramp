@@ -2,10 +2,14 @@ var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require("cors");
+
+const db = require("./db")
 
 var app = express();
 const port = 8080;
 app.use(logger('dev'));
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -15,8 +19,11 @@ app.get('/api', (req, res) => {
   res.send(`${new Date()}`);
 });
 
-app.get('/api/users', (req, res) => {
-  res.send(['Aang', 'Katara', 'Momo', 'Sokka', 'Appa']);
+app.get('/api/users', async (req, res) => {
+  // res.send(['Aang', 'Katara', 'Momo', 'Sokka', 'Appa']);
+  const results = await db.query("select * from users");
+  console.log(results)
+  res.status(200).json('test')
 });
 
 // catch 404 and forward to error handler
