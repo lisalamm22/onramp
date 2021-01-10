@@ -2,12 +2,12 @@ const jwtV = require('jsonwebtoken');
 require("dotenv").config()
 
 module.exports = async (req, res, next) => {
-    const jwtToken = req.header("token")
-    if(!jwtToken){
-        return res.status(403).json("Not Authorized - no token")
-    }
     
     try{
+        const jwtToken = req.header("token")
+        if(!jwtToken){
+            return res.status(403).json("Not Authorized - no token")
+        }
         const payload = jwtV.verify(jwtToken, process.env.jwtSecret)
         req.user = payload.user
         next();

@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const jwtV = require('jsonwebtoken');
 require("dotenv").config();
 module.exports = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-    const jwtToken = req.header("token");
-    if (!jwtToken) {
-        return res.status(403).json("Not Authorized - no token");
-    }
     try {
+        const jwtToken = req.header("token");
+        if (!jwtToken) {
+            return res.status(403).json("Not Authorized - no token");
+        }
         const payload = jwtV.verify(jwtToken, process.env.jwtSecret);
         req.user = payload.user;
         next();
