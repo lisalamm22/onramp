@@ -3,16 +3,18 @@ import axios from 'axios';
 import Container from '@material-ui/core/Container'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Search from './search'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Gallery: React.FC = () => {
     const [images, setImages] = useState<any>([]);
-    const [loading, setLoading] = useState<Boolean>(true);
-    const [search, setSearch] = useState<String>('');
-    
+    // const [loading, setLoading] = useState<Boolean>(true);
+    const [searchInput, setSearchInput] = useState<String>('')
+    const [isSearching, setIsSearching] = useState<Boolean>(false)
+    const [searchPage, setSearchPage] = useState<number>(1)
+
     const unsplashAPI = "https://api.unsplash.com"
     // const accessKey = process.env.UNSPLASH_ACCESS_KEY
 
@@ -21,14 +23,41 @@ const Gallery: React.FC = () => {
     }, [])
     
     const fetchImages = () => {
-        setLoading(true)
+        // setLoading(true)
+        setSearchInput('')
+        setIsSearching(false)
+        setSearchPage(1)
         axios
             .get(`${unsplashAPI}/photos/random?client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&count=10 `)
             .then((res:any) => setImages([...images, ...res.data]))
-            .then((res:any) => console.log(res))
-        console.log(images)
-        setLoading(false)
+        // setLoading(false)
+        }
+        
+    const fetchSearchImages = async () => {
+        if(searchInput !== ''){
+            // setLoading(true)
+            const res = await axios
+                .get(`${unsplashAPI}/search/photos?page=${searchPage}&query=${searchInput}&client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&per_page=20 `)
+            const searchRes = res.data.results
+            setImages([...images, ...searchRes])
+            let newPage = searchPage+1
+            setSearchPage(newPage)
+            // setLoading(false)
+        }
     }
+    
+    const handleSearchInput = (e:any) => {
+        setSearchInput(e.target.value);
+    }
+    
+    const handleSearch = (e:any) => {
+        e.preventDefault();
+        setIsSearching(true)
+        setImages([])
+        fetchSearchImages();
+    }
+    
+    // if(loading) return <CircularProgress size={100}/>
     
     const getImages = () => {
         return (
@@ -48,32 +77,14 @@ const Gallery: React.FC = () => {
         )
     }
     
-    const handleSearchInput = (e:any) => {
-        setSearch(e.target.value);
-    }
-    
-    const handleSubmit = async (e:any) => {
-        e.preventDefault();
-        if(search !== ''){
-            setLoading(true)
-            const res = await axios
-                .get(`${unsplashAPI}/search/photos?page=1&query=${search}&client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&per_page=20 `)
-            const searchRes = res.data.results
-            setImages(searchRes)
-            setLoading(false)
-        }
-    }
-
-    if(loading) return <CircularProgress size={100}/>
-    
     return (
         <InfiniteScroll 
-            dataLength = {images.length}
-            next = {fetchImages}
+        dataLength = {images.length}
+        next = {isSearching ? fetchSearchImages : fetchImages}
             hasMore = {true}
             loader = {<LinearProgress />} >
             <Container maxWidth="lg">
-                <Search handleSearch={handleSearchInput} handleSubmit={handleSubmit}/>
+                <Search handleSearchInput={handleSearchInput} handleSearch={handleSearch}/>
                 {getImages()}
             </Container>
         </InfiniteScroll>
