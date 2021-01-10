@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/login" render={props => !isAuth ? <Login {...props} setAuthProp={setAuth}/> : <Redirect to="/home"/>}/>
-          <Route exact path="/register" render={props => !isAuth ? <Register {...props}/> : <Redirect to="/login" />}/>
+          <Route exact path="/register" render={props => !isAuth ? <Register {...props} setAuthProp={setAuth}/> : <Redirect to="/login" />}/>
           <Route exact path="/home" render={props => isAuth ? <Home {...props} setAuthProp={setAuth}/> : <Redirect to="/login"/>}/>
         </Switch>
       </Router>
