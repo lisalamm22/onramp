@@ -1,6 +1,6 @@
 import { FunctionComponent, Fragment, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
-import Unsplash  from './unsplash';
+import Unsplash  from './gallery';
 import Button from '@material-ui/core/Button';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
