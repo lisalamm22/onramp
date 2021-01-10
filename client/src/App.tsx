@@ -1,31 +1,25 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import './App.css';
-import Button from '@material-ui/core/Button';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import Home from './components/home';
 import Login from './components/login';
 import Register from './components/register';
 
 function App() {
-  // const [data, setData] = React.useState<any|null>(null);
+  const [isAuth, setIsAuth] = useState<Boolean>(false)
 
-  // const getData = () => {
-  //   fetch('/api')
-  //     .then((result) => result.text())
-  //     .then((res) => setData(res));
-  // };
+  const setAuth = (bool:Boolean) => {
+    setIsAuth(bool)
+  }
+
   return (
     <Fragment>
-      <header className="App-header">
-        <Button>HELLO WORLD</Button>
-      </header>
-
       <Router>
         <Switch>
-          <Route exact path="/login" component={Login}/>
-          <Route exact path="/register" component={Register}/>
-          <Route exact path="/home" component={Home}/>
+          <Route exact path="/login" render={props => !isAuth ? <Login {...props} setAuthProp={setAuth}/> : <Redirect to="/home"/>}/>
+          <Route exact path="/register" render={props => !isAuth ? <Register {...props}/> : <Redirect to="/login" />}/>
+          <Route exact path="/home" render={props => isAuth ? <Home {...props} setAuthProp={setAuth}/> : <Redirect to="/login"/>}/>
         </Switch>
       </Router>
     </Fragment>
