@@ -1,8 +1,10 @@
 import {FunctionComponent, Fragment, useState} from 'react';
 import { RouteComponentProps } from 'react-router';
 import Button from '@material-ui/core/Button';
-import { InputAdornment, Textfield } from '@material-ui/core';
+import Textfield from '@material-ui/core/TextField';
+import { InputAdornment } from '@material-ui/core';
 import { Email, VpnKey } from '@material-ui/icons';
+import { Link } from 'react-router-dom'
 
 // function Login() {
 const Login: FunctionComponent<Props> = ({setAuthProp}) => {
@@ -27,7 +29,8 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
                 body: JSON.stringify(body)
             })
             const parseRes = await res.json();
-            console.log(parseRes)
+            localStorage.setItem("token", parseRes.token);
+            setAuthProp(true)
         } catch (error) {
             console.error(error.message)
         }
@@ -36,7 +39,7 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
     return (
         <Fragment>
             <h1>Sign In</h1>
-            <form action="">
+            <form onSubmit={onSubmit}>
                 <Textfield 
                     type="email"
                     name="email"
@@ -65,8 +68,9 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
                             </InputAdornment>
                         )
                     }}/>
+                <Button onClick={onSubmit}>Login</Button>
             </form>
-            <Button onClick={()=>setAuthProp(true)}>Login</Button>
+            <Button><Link to="/register">Sign Up</Link></Button>
         </Fragment>
     )
 }

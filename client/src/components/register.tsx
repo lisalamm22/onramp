@@ -3,6 +3,7 @@ import {RouteComponentProps} from 'react-router';
 import Textfield from '@material-ui/core/TextField';
 import { Button, InputAdornment } from '@material-ui/core';
 import { Person, Email, VpnKey } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 const Register: FunctionComponent<Props> = ({ setAuthProp }) => {
 
@@ -82,6 +83,7 @@ const Register: FunctionComponent<Props> = ({ setAuthProp }) => {
                 <Button onClick={onSubmit}>Submit</Button>
                 {/* <button>Submit</button> */}
             </form>
+            <Button><Link to="/login">Sign In</Link></Button>  
         </Fragment>
     )
 }
