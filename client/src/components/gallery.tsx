@@ -5,14 +5,17 @@ import Container from '@material-ui/core/Container'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Search from './search'
 
-const Unsplash: React.FC = () => {
-    const [images, setImages] = useState<any>([])
-    const [loading, setLoading] = useState<Boolean>(true)
+const Gallery: React.FC = () => {
+    const [images, setImages] = useState<any>([]);
+    const [loading, setLoading] = useState<Boolean>(true);
+    const [search, setSearch] = useState<String>('');
+    
+    const unsplashAPI = "https://api.unsplash.com"
 
     useEffect(() => {
         setLoading(true)
-        const unsplashAPI = "https://api.unsplash.com"
         // const accessKey = process.env.UNSPLASH_ACCESS_KEY
         axios
             .get(`${unsplashAPI}/photos/random?client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&count=10 `)
@@ -41,11 +44,28 @@ const Unsplash: React.FC = () => {
             </GridList>
         )
     }
+
+    const handleSearchInput = (e:any) => {
+        setSearch(e.target.value);
+    }
+
+    const handleSubmit = async (e:any) => {
+        e.preventDefault();
+        setLoading(true)
+        const res = await axios
+            .get(`${unsplashAPI}/search/photos?page=1&query=${search}&client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&per_page=20 `)
+        console.log(res)
+        const searchRes = res.data.results
+        setImages(searchRes)
+        setLoading(false)
+    }
+
     return (
         <Container maxWidth="lg">
+            <Search handleSearch={handleSearchInput} handleSubmit={handleSubmit}/>
             {getImages()}
         </Container>
     )
 }
 
-export default Unsplash
+export default Gallery
