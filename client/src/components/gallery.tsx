@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import Link from '@material-ui/core/Link';
-import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import Container from '@material-ui/core/Container'
 import GridList from '@material-ui/core/GridList';
@@ -9,6 +7,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Search from './search'
 import InfiniteScroll from 'react-infinite-scroll-component';
+import '../stylesheets/gallery.css'
 // import Photo from './photo';
 
 
@@ -20,7 +19,7 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     const [searchInput, setSearchInput] = useState<String>('')
     const [isSearching, setIsSearching] = useState<Boolean>(false)
     const [searchPage, setSearchPage] = useState<number>(1)
-    const history = useHistory();
+    // const history = useHistory();
 
     const unsplashAPI = "https://api.unsplash.com"
     // const accessKey = process.env.UNSPLASH_ACCESS_KEY
@@ -77,11 +76,11 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     }
     
     // if(loading) return <CircularProgress size={100}/>
-    const redirectPhoto = (e:any,id:any) => {
-        e.preventDefault();
-        history.push(`/photos/${id}`)
-        // handleOpen();
-    }
+    // const redirectPhoto = (e:any,id:any) => {
+    //     e.preventDefault();
+    //     history.push(`/photos/${id}`)
+    //     // handleOpen();
+    // }
     
     const getImages = () => {
         return (
@@ -91,12 +90,13 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
                     <GridListTile key={idx}
                         style={{ flexGrow: 1 }}
                         cols = {(image.width/5000)}
+                        className='gallery-tile'
                         onClick= {() => setModalImg(image)}>
                         {/* onClick = {() => handleOpen(idx)}> */}
                         {/* onClick = {e => redirectPhoto(e,image.id)}> */}
                             <img 
                                 srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
-                                ${image.urls.small}?w=161&fit=crop&auto=format&dpr=2 2x`}
+                                ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
                                 src={`${image.urls.thumb}`}
                                 alt={image.description || image.alt_description}
                             />
@@ -107,23 +107,51 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     }
     const getSearchImages = () => {
         return (
-            <GridList cellHeight={250} cols={3} spacing={15}>
-                {searchImages.map((image:any, idx:number) => {
+            <GridList cellHeight={250} cols={3} spacing={15} >
+                {searchImages.map((image:any,idx:number) => {
                     return (
-                        <GridListTile key={idx}
+                    <GridListTile key={idx}
                         style={{ flexGrow: 1 }}
                         cols = {(image.width/5000)}
-                        onClick = {e => redirectPhoto(e,image.id)}>
-                        <img 
-                            srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
-                            ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                            alt={image.description || image.alt_description}
-                        />
+                        className='gallery-tile'
+                        onClick= {() => setModalImg(image)}>
+                        {/* onClick = {() => handleOpen(idx)}> */}
+                        {/* onClick = {e => redirectPhoto(e,image.id)}> */}
+                            <img 
+                                srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
+                                ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
+                                src={`${image.urls.thumb}`}
+                                alt={image.description || image.alt_description}
+                            />
                     </GridListTile>
                 )})}
             </GridList>
         )
     }
+    // const getSearchImages = () => {
+    //     return (
+    //         <GridList cellHeight={250} cols={3} spacing={15}>
+    //             {searchImages.map((image:any, idx:number) => {
+    //                 return (
+    //                     <GridListTile key={idx}
+    //                     style={{ flexGrow: 1 }}
+    //                     cols = {(image.width/5000)}
+    //                     className="gallery-tile"
+    //                     onClick = {() => {
+    //                         console.log('open modal before')
+    //                         setModalImg(image)
+    //                         console.log('open modal after')
+    //                         }}>
+    //                     <img 
+    //                         srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
+    //                         ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
+    //                         alt={image.description || image.alt_description}
+    //                     />
+    //                 </GridListTile>
+    //             )})}
+    //         </GridList>
+    //     )
+    // }
     
     return (
         <InfiniteScroll 

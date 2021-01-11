@@ -37,7 +37,7 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
 
     return(
         <Fragment>
-            <h1>Welcome back, {username}</h1>
+            <h3>WELCOME BACK, {username.toUpperCase()}</h3>
             <Button onClick={e => logout(e)}>Logout</Button>
             <div>
                 <Gallery setModalImg={setModalImg}/>

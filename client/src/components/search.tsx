@@ -2,10 +2,11 @@ import React from 'react';
 import Textfield from '@material-ui/core/TextField';
 import { ImageSearch } from '@material-ui/icons';
 import { InputAdornment } from '@material-ui/core';
+import '../stylesheets/search.css'
 
 const SearchBar: React.FC<Props> = ({ handleSearch, handleSearchInput }) => {
     return (
-        <form onSubmit={handleSearch}>
+        <form className="searchbar" onSubmit={handleSearch}>
             <Textfield fullWidth 
                 // label="SEARCH"
                 placeholder="SEARCH FOR ANYTHING"

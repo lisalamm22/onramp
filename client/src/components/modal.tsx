@@ -12,7 +12,7 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg }) => {
             setModalImg(null)
         }
     }
-    
+
     return (
         <Modal
             open= {Boolean(modalImg)}
@@ -24,19 +24,25 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg }) => {
             }}
         >
             <div className="photo-modal">
+                <header className="photo-modal-header">
+                    <p className="profile">
+                        <img src={modalImg.user.profile_image.small} className="profile-pic"/>
+                        {`${modalImg.user.name}`}
+                    </p> 
+                    <p>{modalImg.location ? (modalImg.location.name ? `Location: ${modalImg.location.name}` : '') : ''}</p> 
+                </header>
                 <Container maxWidth="lg" id="photo-modal-container">
                     <img src={modalImg.urls.regular} className="photo-modal-img"/>
                 </Container>
-                    <p>{`Title: ${modalImg.description}`}</p> 
-                    <p>
-                        <img src={modalImg.user.profile_image.small}/>
-                        {`Photographer: ${modalImg.user.name}`}
-                    </p> 
 
-                    <p>{`Description: ${modalImg.alt_description}`}</p> 
-                    <p>{modalImg.location.name ? `Location: ${modalImg.location.name}` : ''}</p> 
+                <nav className="options-nav">
                     <p>{`${modalImg.likes} Likes`}</p> 
                     <p>{`${modalImg.downloads} Downloads`}</p> 
+                    <p> Edit </p>
+                </nav>
+
+                <p>{modalImg.description ? `Title: ${modalImg.description}` : ''}</p> 
+                <p>{modalImg.alt_description ? `${modalImg.alt_description}` : ''}</p> 
             </div>
         </Modal>
     )
