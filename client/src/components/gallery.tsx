@@ -20,7 +20,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     const [searchInput, setSearchInput] = useState<String>('')
     const [isSearching, setIsSearching] = useState<Boolean>(false)
     const [searchPage, setSearchPage] = useState<number>(1)
-    // const [open, setOpen] = useState<boolean>(false)
     const history = useHistory();
 
     const unsplashAPI = "https://api.unsplash.com"
@@ -36,12 +35,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
             setNewSearch(false)
         }
     }, [searchImages])
-
-    // useEffect(() => {
-    //     if(!open){
-    //         setOpen(false)
-    //     }
-    // }, [open])
     
     const fetchImages = async () => {
         // setLoading(true)
@@ -50,7 +43,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
         setSearchPage(1)
         const res = await axios
             .get(`${unsplashAPI}/photos/random?client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&count=10 `)
-            // .then((res:any) => setImages([...images, ...res.data]))
         const fetchedImages = await res.data;
         setImages([...images, ...fetchedImages])
         // setLoading(false)
@@ -90,15 +82,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
         history.push(`/photos/${id}`)
         // handleOpen();
     }
-
-    // const handleOpen = () => {
-    //     setOpen(true)
-    // }
-
-    // const handleClose = () => {
-    //     setOpen(false)
-    //     console.log('close modal')
-    // }
     
     const getImages = () => {
         return (
@@ -117,7 +100,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
                                 src={`${image.urls.thumb}`}
                                 alt={image.description || image.alt_description}
                             />
-                            {/* <Photo open={open} handleClose={handleClose} photo={image}/> */}
                     </GridListTile>
                 )})}
             </GridList>

@@ -36,6 +36,7 @@ function App() {
     <Fragment>
       <Router>
         <Switch>
+          <Route exact path="/" render={ () => <Redirect to="/home"/> } />
           <Route exact path="/login" render={props => isAuth ? <Redirect to="/home"/> : <Login {...props} setAuthProp={setAuth}/>}/>
           <Route exact path="/register" render={props => isAuth ? <Redirect to="/home"/> : <Register {...props} setAuthProp={setAuth}/>}/>
           <Route exact path="/home" render={props => isAuth ? <Home {...props} setAuthProp={setAuth}/> : <Redirect to="/login" />}/>

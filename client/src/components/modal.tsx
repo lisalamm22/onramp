@@ -1,6 +1,8 @@
 import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
+import Container from '@material-ui/core/Container';
+import '../stylesheets/modal.css';
 
 const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg }) => {
     const handleClose = (e:any) => {
@@ -15,14 +17,26 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg }) => {
         <Modal
             open= {Boolean(modalImg)}
             onClose={e => handleClose(e)}
+            closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps = {{
                 timeout: 500
             }}
         >
-            <div>
-                <img src={modalImg.urls.small} />
-                <h1>IMAGE</h1>
+            <div className="photo-modal">
+                <Container maxWidth="lg" id="photo-modal-container">
+                    <img src={modalImg.urls.regular} className="photo-modal-img"/>
+                </Container>
+                    <p>{`Title: ${modalImg.description}`}</p> 
+                    <p>
+                        <img src={modalImg.user.profile_image.small}/>
+                        {`Photographer: ${modalImg.user.name}`}
+                    </p> 
+
+                    <p>{`Description: ${modalImg.alt_description}`}</p> 
+                    <p>{modalImg.location.name ? `Location: ${modalImg.location.name}` : ''}</p> 
+                    <p>{`${modalImg.likes} Likes`}</p> 
+                    <p>{`${modalImg.downloads} Downloads`}</p> 
             </div>
         </Modal>
     )
