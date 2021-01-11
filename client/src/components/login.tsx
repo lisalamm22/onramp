@@ -4,9 +4,8 @@ import Button from '@material-ui/core/Button';
 import Textfield from '@material-ui/core/TextField';
 import { InputAdornment } from '@material-ui/core';
 import { Email, VpnKey } from '@material-ui/icons';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-// function Login() {
 const Login: FunctionComponent<Props> = ({setAuthProp}) => {
     const [inputs, setInputs] = useState({
         email: "",

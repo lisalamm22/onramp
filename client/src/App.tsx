@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Home from './components/home';
 import Login from './components/login';
 import Register from './components/register';
+import Photo from './components/photo';
 
 function App() {
   const [isAuth, setIsAuth] = useState<Boolean>(false);
@@ -38,9 +39,7 @@ function App() {
           <Route exact path="/login" render={props => isAuth ? <Redirect to="/home"/> : <Login {...props} setAuthProp={setAuth}/>}/>
           <Route exact path="/register" render={props => isAuth ? <Redirect to="/home"/> : <Register {...props} setAuthProp={setAuth}/>}/>
           <Route exact path="/home" render={props => isAuth ? <Home {...props} setAuthProp={setAuth}/> : <Redirect to="/login" />}/>
-          {/* <Route exact path="/login" render={props => !isAuth ? <Login {...props} setAuthProp={setAuth}/> : <Redirect to="/home"/>}/>
-          <Route exact path="/register" render={props => !isAuth ? <Register {...props} setAuthProp={setAuth}/> : <Redirect to="/login" />}/>
-          <Route exact path="/home" render={props => isAuth ? <Home {...props} setAuthProp={setAuth}/> : <Redirect to="/login"/>}/> */}
+          <Route exact path="/photos/:id" render={props => <Photo {...props}/>}/>
         </Switch>
       </Router>
     </Fragment>

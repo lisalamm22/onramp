@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     const [username, setUserame] = useState("")
-    // const [images, setImages] = useState([])
 
     async function getUsername() {
         try {
@@ -34,7 +33,6 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
         <Fragment>
             <h1>Welcome back, {username}</h1>
             <Button onClick={e => logout(e)}>Logout</Button>
-            {/* <Button onClick={()=>setAuthProp(false)}>Logout</Button> */}
             <div>
                 <Unsplash />
             </div>
