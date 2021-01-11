@@ -1,0 +1,10 @@
+.photo-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.photo-pg-img{
+    height: 75vh;
+}

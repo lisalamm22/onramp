@@ -14,6 +14,7 @@ const Gallery: React.FC = () => {
     const [images, setImages] = useState<any>([]);
     const [searchImages, setSearchImages] = useState<any>([]);
     // const [loading, setLoading] = useState<Boolean>(true);
+    const [newSearch, setNewSearch] = useState<boolean>(false)
     const [searchInput, setSearchInput] = useState<String>('')
     const [isSearching, setIsSearching] = useState<Boolean>(false)
     const [searchPage, setSearchPage] = useState<number>(1)
@@ -27,8 +28,9 @@ const Gallery: React.FC = () => {
     }, [])
 
     useEffect(() => {
-        if(!isSearching){
+        if(!isSearching || newSearch){
             fetchSearchImages();
+            setNewSearch(false)
         }
     }, [searchImages])
     
@@ -69,6 +71,7 @@ const Gallery: React.FC = () => {
     
     const handleSearch = (e:any) => {
         e.preventDefault();
+        setNewSearch(true)
         setSearchImages([])
     }
     
@@ -80,7 +83,7 @@ const Gallery: React.FC = () => {
     
     const getImages = () => {
         return (
-            <GridList cellHeight={250} cols={3} >
+            <GridList cellHeight={250} cols={3} spacing={15} >
                 {images.map((image:any,idx:number) => {
                     return (
                     <GridListTile key={idx}
