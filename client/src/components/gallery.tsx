@@ -9,8 +9,10 @@ import GridListTile from '@material-ui/core/GridListTile';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Search from './search'
 import InfiniteScroll from 'react-infinite-scroll-component';
+// import Photo from './photo';
 
-const Gallery: React.FC = () => {
+
+const Gallery: React.FC<Props> = ({ setModalImg }) => {
     const [images, setImages] = useState<any>([]);
     const [searchImages, setSearchImages] = useState<any>([]);
     // const [loading, setLoading] = useState<Boolean>(true);
@@ -18,6 +20,7 @@ const Gallery: React.FC = () => {
     const [searchInput, setSearchInput] = useState<String>('')
     const [isSearching, setIsSearching] = useState<Boolean>(false)
     const [searchPage, setSearchPage] = useState<number>(1)
+    // const [open, setOpen] = useState<boolean>(false)
     const history = useHistory();
 
     const unsplashAPI = "https://api.unsplash.com"
@@ -33,6 +36,12 @@ const Gallery: React.FC = () => {
             setNewSearch(false)
         }
     }, [searchImages])
+
+    // useEffect(() => {
+    //     if(!open){
+    //         setOpen(false)
+    //     }
+    // }, [open])
     
     const fetchImages = async () => {
         // setLoading(true)
@@ -79,7 +88,17 @@ const Gallery: React.FC = () => {
     const redirectPhoto = (e:any,id:any) => {
         e.preventDefault();
         history.push(`/photos/${id}`)
+        // handleOpen();
     }
+
+    // const handleOpen = () => {
+    //     setOpen(true)
+    // }
+
+    // const handleClose = () => {
+    //     setOpen(false)
+    //     console.log('close modal')
+    // }
     
     const getImages = () => {
         return (
@@ -89,13 +108,16 @@ const Gallery: React.FC = () => {
                     <GridListTile key={idx}
                         style={{ flexGrow: 1 }}
                         cols = {(image.width/5000)}
-                        onClick = {e => redirectPhoto(e,image.id)}>
+                        onClick= {() => setModalImg(image)}>
+                        {/* onClick = {() => handleOpen(idx)}> */}
+                        {/* onClick = {e => redirectPhoto(e,image.id)}> */}
                             <img 
                                 srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
                                 ${image.urls.small}?w=161&fit=crop&auto=format&dpr=2 2x`}
                                 src={`${image.urls.thumb}`}
                                 alt={image.description || image.alt_description}
                             />
+                            {/* <Photo open={open} handleClose={handleClose} photo={image}/> */}
                     </GridListTile>
                 )})}
             </GridList>
@@ -103,7 +125,7 @@ const Gallery: React.FC = () => {
     }
     const getSearchImages = () => {
         return (
-            <GridList cellHeight={250} cols={3} >
+            <GridList cellHeight={250} cols={3} spacing={15}>
                 {searchImages.map((image:any, idx:number) => {
                     return (
                         <GridListTile key={idx}
@@ -133,6 +155,10 @@ const Gallery: React.FC = () => {
             </Container>
         </InfiniteScroll>
     )
+}
+
+interface Props{
+    setModalImg: any
 }
 
 export default Gallery

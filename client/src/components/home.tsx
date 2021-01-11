@@ -1,10 +1,16 @@
 import { FunctionComponent, Fragment, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
-import Unsplash  from './gallery';
+import Gallery  from './gallery';
 import Button from '@material-ui/core/Button';
+import PhotoModal from './modal';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
-    const [username, setUserame] = useState("")
+    const [username, setUserame] = useState("");
+    const [modalImg, setModalImg] = useState<any>(null)
+
+    useEffect(() => {
+        console.log(modalImg)
+    }, [modalImg])
 
     async function getUsername() {
         try {
@@ -34,7 +40,8 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
             <h1>Welcome back, {username}</h1>
             <Button onClick={e => logout(e)}>Logout</Button>
             <div>
-                <Unsplash />
+                <Gallery setModalImg={setModalImg}/>
+                {modalImg && <PhotoModal modalImg={modalImg} setModalImg={setModalImg}/>}
             </div>
         </Fragment>
     )
