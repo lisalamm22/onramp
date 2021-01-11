@@ -23,7 +23,7 @@ const Photo: React.FC<Props> = () => {
     }
     return (
         <div>
-            Photo {photoId}
+            {/* Photo {photoId} */}
             <img src={photoURL}/>
         </div>
     )

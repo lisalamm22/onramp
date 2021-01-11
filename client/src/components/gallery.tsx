@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
+import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import Container from '@material-ui/core/Container'
 import GridList from '@material-ui/core/GridList';
@@ -16,6 +17,7 @@ const Gallery: React.FC = () => {
     const [searchInput, setSearchInput] = useState<String>('')
     const [isSearching, setIsSearching] = useState<Boolean>(false)
     const [searchPage, setSearchPage] = useState<number>(1)
+    const history = useHistory();
 
     const unsplashAPI = "https://api.unsplash.com"
     // const accessKey = process.env.UNSPLASH_ACCESS_KEY
@@ -68,12 +70,13 @@ const Gallery: React.FC = () => {
     const handleSearch = (e:any) => {
         e.preventDefault();
         setSearchImages([])
-        // console.log('search')
-        // console.log(searchImages) //still appending
-        // fetchSearchImages();
     }
     
     // if(loading) return <CircularProgress size={100}/>
+    const redirectPhoto = (e:any,id:any) => {
+        e.preventDefault();
+        history.push(`/photos/${id}`)
+    }
     
     const getImages = () => {
         return (
@@ -82,15 +85,14 @@ const Gallery: React.FC = () => {
                     return (
                     <GridListTile key={idx}
                         style={{ flexGrow: 1 }}
-                        cols = {(image.width/5000)}>
-                        <Link href={`/photos/${image.id}`}>
+                        cols = {(image.width/5000)}
+                        onClick = {e => redirectPhoto(e,image.id)}>
                             <img 
                                 srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
-                                ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                                // src={`${image.urls.thumb}`}
+                                ${image.urls.small}?w=161&fit=crop&auto=format&dpr=2 2x`}
+                                src={`${image.urls.thumb}`}
                                 alt={image.description || image.alt_description}
                             />
-                        </Link>
                     </GridListTile>
                 )})}
             </GridList>
@@ -101,17 +103,15 @@ const Gallery: React.FC = () => {
             <GridList cellHeight={250} cols={3} >
                 {searchImages.map((image:any, idx:number) => {
                     return (
-                    <GridListTile key={idx}
+                        <GridListTile key={idx}
                         style={{ flexGrow: 1 }}
-                        cols = {(image.width/5000)}>
-                        <Link href={`/photos/${image.id}`}> 
+                        cols = {(image.width/5000)}
+                        onClick = {e => redirectPhoto(e,image.id)}>
                         <img 
                             srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
                             ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                            // src={`${image.urls.thumb}`}
                             alt={image.description || image.alt_description}
                         />
-                        </Link>
                     </GridListTile>
                 )})}
             </GridList>
