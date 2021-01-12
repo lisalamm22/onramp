@@ -1,24 +1,57 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
 // import axios from 'axios';
 // import Container from '@material-ui/core/Container'
 // import GridList from '@material-ui/core/GridList';
 // import GridListTile from '@material-ui/core/GridListTile';
 // import CircularProgress from '@material-ui/core/CircularProgress';
 // import LinearProgress from '@material-ui/core/LinearProgress';
-// import Search from './search'
+import Search from './search'
 // import InfiniteScroll from 'react-infinite-scroll-component';
 import '../stylesheets/gallery.css'
 import RandomPage from './random_page';
+import SearchResultsPage from './search_results_page';
+import { Button } from '@material-ui/core';
 
 
 const Gallery: React.FC<Props> = ({ setModalImg }) => {
     // const [images, setImages] = useState<any>([]);
     // const [searchImages, setSearchImages] = useState<any>([]);
-    // const [loading, setLoading] = useState<Boolean>(true);
-    // const [newSearch, setNewSearch] = useState<boolean>(false)
-    // const [searchInput, setSearchInput] = useState<String>('')
-    // const [isSearching, setIsSearching] = useState<Boolean>(false)
+    const [newSearch, setNewSearch] = useState<boolean>(false)
+    const [searchInput, setSearchInput] = useState<string>('')
+    const [isSearching, setIsSearching] = useState<boolean>(false)
     // const [searchPage, setSearchPage] = useState<number>(1)
+    const [searchResults, setSearchResults] = useState<any>(null)
+
+    const getSearchImages = () => {
+        console.log("isSearching")
+        console.log(isSearching)
+        console.log("newSearch")
+        console.log(newSearch)
+        console.log('searchInput')
+        console.log(searchInput)
+        return( 
+            <SearchResultsPage 
+                // searchImages = {searchImages}
+                // setSearchImages = {setSearchImages}
+                newSearch = {newSearch}
+                setNewSearch = {setNewSearch}
+                searchInput = {searchInput}
+                setSearchInput = {setSearchInput}
+                isSearching = {isSearching}
+                setIsSearching = {setIsSearching}
+                // searchPage = {searchPage}
+                // setSearchPage = {setSearchPage}
+                setModalImg ={setModalImg}
+            />
+        )
+    }
+    
+    useEffect( () => {
+        console.log("using effect")
+        setSearchResults(getSearchImages())
+    }, [newSearch])
+    // const [loading, setLoading] = useState<Boolean>(true);
 
     // const unsplashAPI = "https://api.unsplash.com"
     // const accessKey = process.env.UNSPLASH_ACCESS_KEY
@@ -56,15 +89,17 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     //     }
     // }
     
-    // const handleSearchInput = (e:any) => {
-    //     setSearchInput(e.target.value);
-    // }
+    const handleSearchInput = (e:any) => {
+        setSearchInput(e.target.value);
+    }
     
-    // const handleSearch = (e:any) => {
-    //     e.preventDefault();
-    //     setNewSearch(true)
-    //     setSearchImages([])
-    // }
+    const handleSearch = (e:any) => {
+        e.preventDefault();
+        // setSearchImages([])
+        setNewSearch(true)
+        setIsSearching(true)
+        getSearchImages()
+    }
     
     // const getImages = () => {
     //     return (
@@ -94,8 +129,15 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
         return <RandomPage setModalImg={setModalImg}/>
     }
 
+
     // const getSearchImages = () => {
     //     return (
+    //     <InfiniteScroll
+    //         dataLength = {searchImages.length}
+    //         next = { fetchSearchImages }
+    //         hasMore = { true }
+    //         loader = { <LinearProgress/> }
+    //     >
     //         <GridList cellHeight={250} cols={3} spacing={15} >
     //             {searchImages.map((image:any,idx:number) => {
     //                 return (
@@ -113,6 +155,7 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     //                 </GridListTile>
     //             )})}
     //         </GridList>
+    //         </InfiniteScroll>
     //     )
     // }
     
@@ -129,7 +172,16 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
         //         {isSearching ? getSearchImages() : getImages()}
         //     </Container>
         // </InfiniteScroll>
-        <div>{getImages()}</div>
+        <div>
+            <Search handleSearchInput={handleSearchInput} handleSearch={handleSearch}/>
+            <Button
+                onClick={()=>{
+                    setIsSearching(false)
+                }}
+            >Home</Button>
+            {isSearching? searchResults : getImages()}
+            
+        </div>
     )
 }
 
