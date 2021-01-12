@@ -3,8 +3,9 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
 import '../stylesheets/modal.css';
+import { Button } from '@material-ui/core';
 
-const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg }) => {
+const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg}) => {
     const handleClose = (e:any) => {
         console.log(modalImg)
         console.log(e)
@@ -38,7 +39,11 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg }) => {
                 <nav className="options-nav">
                     <p>{`${modalImg.likes} Likes`}</p> 
                     <p>{`${modalImg.downloads} Downloads`}</p> 
-                    <p> Edit </p>
+                    <Button onClick={()=>{
+                        setEditModalImg(modalImg)
+                        setModalImg(null)
+                    }}>
+                    Edit</Button>
                 </nav>
 
                 <p>{modalImg.description ? `Title: ${modalImg.description}` : ''}</p> 
@@ -50,7 +55,8 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg }) => {
 
 interface Props {
     modalImg: any,
-    setModalImg: any
+    setModalImg: any,
+    setEditModalImg: any,
 }
 
 export default PhotoModal

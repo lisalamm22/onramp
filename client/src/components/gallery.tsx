@@ -76,11 +76,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     }
     
     // if(loading) return <CircularProgress size={100}/>
-    // const redirectPhoto = (e:any,id:any) => {
-    //     e.preventDefault();
-    //     history.push(`/photos/${id}`)
-    //     // handleOpen();
-    // }
     
     const getImages = () => {
         return (
@@ -115,8 +110,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
                         cols = {(image.width/5000)}
                         className='gallery-tile'
                         onClick= {() => setModalImg(image)}>
-                        {/* onClick = {() => handleOpen(idx)}> */}
-                        {/* onClick = {e => redirectPhoto(e,image.id)}> */}
                             <img 
                                 srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
                                 ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
@@ -128,30 +121,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
             </GridList>
         )
     }
-    // const getSearchImages = () => {
-    //     return (
-    //         <GridList cellHeight={250} cols={3} spacing={15}>
-    //             {searchImages.map((image:any, idx:number) => {
-    //                 return (
-    //                     <GridListTile key={idx}
-    //                     style={{ flexGrow: 1 }}
-    //                     cols = {(image.width/5000)}
-    //                     className="gallery-tile"
-    //                     onClick = {() => {
-    //                         console.log('open modal before')
-    //                         setModalImg(image)
-    //                         console.log('open modal after')
-    //                         }}>
-    //                     <img 
-    //                         srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
-    //                         ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
-    //                         alt={image.description || image.alt_description}
-    //                     />
-    //                 </GridListTile>
-    //             )})}
-    //         </GridList>
-    //     )
-    // }
     
     return (
         <InfiniteScroll 

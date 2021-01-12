@@ -3,10 +3,12 @@ import { RouteComponentProps } from 'react-router';
 import Gallery  from './gallery';
 import Button from '@material-ui/core/Button';
 import PhotoModal from './modal';
+import EditModal from './edit_modal';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     const [username, setUserame] = useState("");
     const [modalImg, setModalImg] = useState<any>(null)
+    const [editModalImg, setEditModalImg] = useState<any>(null)
 
     useEffect(() => {
         console.log(modalImg)
@@ -41,7 +43,8 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
             <Button onClick={e => logout(e)}>Logout</Button>
             <div>
                 <Gallery setModalImg={setModalImg}/>
-                {modalImg && <PhotoModal modalImg={modalImg} setModalImg={setModalImg}/>}
+                {modalImg && <PhotoModal modalImg={modalImg} setModalImg={setModalImg} setEditModalImg={setEditModalImg}/>}
+                {editModalImg && <EditModal editModalImg={editModalImg} setEditModalImg={setEditModalImg}/>}
             </div>
         </Fragment>
     )
