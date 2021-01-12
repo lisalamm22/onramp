@@ -1,9 +1,33 @@
+.edit-photo-title{
+    padding: 20px
+}
+
 .filters{
     display: flex;
     flex-direction: column;
+    padding: 20px 0px;
 }
 
 .filter-option{
     display: flex;
-    
+    padding: 5px 10px;
+}   
+
+.filter-slider{
+    width: 20vw;
+    max-width: 800px;
+    height: 1px;
+}
+
+.filter-label{
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+/* .filter-slider::-webkit-slider-runnable-track{
+    width: 2px
+} */
+
+.filter-slider::-webkit-slider-thumb{
+    size: 2px
 }

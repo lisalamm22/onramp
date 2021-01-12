@@ -8,7 +8,7 @@ import '../stylesheets/edit_modal.css';
 
 const DEFAULT_OPTIONS = [
     {
-        name: 'Brightness',
+        name: 'BRIGHTNESS',
         property: 'brightness',
         value: 100,
         range: {
@@ -19,7 +19,7 @@ const DEFAULT_OPTIONS = [
 
     },
     {
-        name: 'Contrast',
+        name: 'CONTRAST',
         property: 'contrast',
         value: 100,
         range: {
@@ -30,7 +30,7 @@ const DEFAULT_OPTIONS = [
 
     },
     {
-        name: 'Saturation',
+        name: 'SATURATION',
         property: 'saturate',
         value: 100,
         range: {
@@ -41,7 +41,7 @@ const DEFAULT_OPTIONS = [
 
     },
     {
-        name: 'Grayscale',
+        name: 'GRAYSCALE',
         property: 'grayscale',
         value: 0,
         range: {
@@ -52,7 +52,7 @@ const DEFAULT_OPTIONS = [
 
     },
     {
-        name: 'Sepia',
+        name: 'SEPIA',
         property: 'sepia',
         value: 0,
         range: {
@@ -63,7 +63,7 @@ const DEFAULT_OPTIONS = [
 
     },
     {
-        name: 'Hue Rotate',
+        name: 'HUE ROTATE',
         property: 'hue-rotate',
         value: 0,
         range: {
@@ -73,17 +73,17 @@ const DEFAULT_OPTIONS = [
         unit: 'deg'
 
     },
-    // {
-    //     name: 'Blur',
-    //     property: 'blur',
-    //     value: 0,
-    //     range: {
-    //         min: 0,
-    //         max: 20,
-    //     },
-    //     unit: 'px'
+    {
+        name: 'BLUR',
+        property: 'blur',
+        value: 0,
+        range: {
+            min: 0,
+            max: 20,
+        },
+        unit: 'px'
 
-    // },
+    },
 ]
 
 const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
@@ -139,7 +139,7 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
             }}
         >
             <div className="photo-modal">
-                <h1>Edit</h1>
+                <p className="edit-photo-title">{`EDIT THIS IMAGE BY ${editModalImg.user.name.toUpperCase()}`}</p>
                 <Container maxWidth="lg" id="photo-modal-container">
                     <img src={editModalImg.urls.regular} className="photo-modal-img" style={getImageEdits()}/>
                 </Container>
@@ -163,7 +163,7 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
                         )
                     })}
                 </div>
-            </div>
+            </div> 
         </Modal>
     )
 }
