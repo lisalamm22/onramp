@@ -59,7 +59,7 @@ userRouter.get('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0,
     try {
         const edits = yield userPool.query("SELECT image,options FROM edits WHERE editor_id =$1", [req.user]);
         res.json({
-            results: edits.rowCount,
+            // results: edits.rowCount,
             edits: edits.rows
         });
     }

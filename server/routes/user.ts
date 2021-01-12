@@ -57,7 +57,7 @@ userRouter.get('/edits', userAuth, async (req, res) => {
     try{
         const edits = await userPool.query("SELECT image,options FROM edits WHERE editor_id =$1", [req.user])
         res.json({
-            results: edits.rowCount,
+            // results: edits.rowCount,
             edits: edits.rows
         })
     } catch(err){
