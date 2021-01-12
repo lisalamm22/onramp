@@ -1,0 +1,9 @@
+.filters{
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-option{
+    display: flex;
+    
+}

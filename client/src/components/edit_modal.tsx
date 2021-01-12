@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
 // import Slider from '@material-ui/core/Slider'
 import '../stylesheets/modal.css';
+import '../stylesheets/edit_modal.css';
 
 const DEFAULT_OPTIONS = [
     {
@@ -146,7 +147,7 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
                     {/* <Slider value = {0} /> */}
                     {options.map((option:any, idx:number) =>{
                         return (
-                            <label className="filter-option">{option.name}
+                            <div className="filter-option">
                                 <input
                                     type='range' 
                                     value={option.value} 
@@ -157,7 +158,8 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
                                     className="filter-slider"
                                     
                                 ></input>
-                            </label>
+                                <p className="filter-label">{option.name}</p>
+                            </div>
                         )
                     })}
                 </div>
