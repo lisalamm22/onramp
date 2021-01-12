@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
@@ -89,6 +89,13 @@ const DEFAULT_OPTIONS = [
 
 const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, likes, setLikes }) => {
     const [options, setOptions] = useState<any>(DEFAULT_OPTIONS)
+    const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(editModalImg.id)}}>Like Button</Button>)
+
+    useEffect(() => {
+        if(likes.includes(editModalImg.id)){
+            setLikeButton(<Button>Cannot Like</Button>)
+        }
+    }, [])
 
     const handleClose = (e:any) => {
         console.log(editModalImg)
@@ -148,6 +155,7 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, likes, setL
     const handleLike = (image_id:string) => {
         postLike(image_id);
         setLikes([]);
+        setLikeButton(<Button>Cannot Like</Button>)
     }
 
     return (
@@ -165,7 +173,7 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, likes, setL
                 <Container maxWidth="lg" id="photo-modal-container">
                     <img src={editModalImg.urls.regular} className="photo-modal-img" style={getImageEdits()}/>
                 </Container>
-                <Button onClick={() => {handleLike(editModalImg.id)}}></Button>
+                {likeButton}
                 <div className="filters">
                     {options.map((option:any, idx:number) =>{
                         return (
