@@ -13,4 +13,28 @@ userRouter.get("/dash", userAuth, async (req, res) => {
     }
 })
 
+userRouter.post('/likes', async (req, res) => {
+    try{
+        const { user, image } = req.body;
+        const newLike = await userPool.query(
+            "INSERT INTO likes (image, liker_id) VALUES ($1, $2) RETURNING *",
+            [ image, user]
+        );
+        res.json(newLike.rows[0])
+    } catch(err){
+        console.error(err.message)
+        res.status(500).send("Server Error")
+    }
+} )
+
+// userRouter.get('/likes', userAuth, async (req, res) => {
+//     try{
+//         const likes = await userPool.query("SELECT image FROM likes WHERE liker_id =$1", [req.user])
+//         res.json(likes)
+//     } catch(err){
+//         console.log(err.message);
+//         res.status(500).send("Server Error")
+//     }
+// })
+
 module.exports = userRouter

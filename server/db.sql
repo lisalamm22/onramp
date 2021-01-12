@@ -16,7 +16,7 @@ CREATE TABLE users(
 INSERT INTO users (user_name, user_email, user_password) VALUES ('demo', 'de@mo.com', 'password');
 
 CREATE TABLE likes(
-    like_id INT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     image VARCHAR(255),
     liker_id uuid REFERENCES users(user_id) NOT NULL
 );

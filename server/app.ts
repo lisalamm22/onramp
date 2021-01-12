@@ -19,13 +19,10 @@ app.set('view engine', 'html');
 
 
 //ROUTES//
-app.get('/api', (req, res) => {
-  res.send(`${new Date()}`);
-});
-
 app.use('/auth', require('./routes/jwtAuth'))
 
 app.use('/user', require('./routes/user'))
+
 
 // app.get('/api/users', async (req, res) => {
 //   // res.send(['Aang', 'Katara', 'Momo', 'Sokka', 'Appa']);
