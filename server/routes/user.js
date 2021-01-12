@@ -55,17 +55,18 @@ userRouter.post('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0
         res.status(500).send("Server Error");
     }
 }));
-// userRouter.get('/edits', userAuth, async (req, res) => {
-//     try{
-//         const edits = await userPool.query("SELECT options FROM edits WHERE liker_id =$1", [req.user])
-//         res.json({
-//             results: likes.rowCount,
-//             images: likes.rows
-//         })
-//     } catch(err){
-//         console.log(err.message);
-//         res.status(500).send("Server Error")
-//     }
-// })
+userRouter.get('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
+    try {
+        const edits = yield userPool.query("SELECT image,options FROM edits WHERE editor_id =$1", [req.user]);
+        res.json({
+            results: edits.rowCount,
+            edits: edits.rows
+        });
+    }
+    catch (err) {
+        console.log(err.message);
+        res.status(500).send("Server Error");
+    }
+}));
 module.exports = userRouter;
 //# sourceMappingURL=user.js.map

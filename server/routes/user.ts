@@ -53,17 +53,17 @@ userRouter.post('/edits', userAuth, async (req, res) => {
     }
 } )
 
-// userRouter.get('/edits', userAuth, async (req, res) => {
-//     try{
-//         const edits = await userPool.query("SELECT options FROM edits WHERE liker_id =$1", [req.user])
-//         res.json({
-//             results: likes.rowCount,
-//             images: likes.rows
-//         })
-//     } catch(err){
-//         console.log(err.message);
-//         res.status(500).send("Server Error")
-//     }
-// })
+userRouter.get('/edits', userAuth, async (req, res) => {
+    try{
+        const edits = await userPool.query("SELECT image,options FROM edits WHERE editor_id =$1", [req.user])
+        res.json({
+            results: edits.rowCount,
+            edits: edits.rows
+        })
+    } catch(err){
+        console.log(err.message);
+        res.status(500).send("Server Error")
+    }
+})
 
 module.exports = userRouter
