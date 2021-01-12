@@ -87,7 +87,10 @@ const DEFAULT_OPTIONS = [
     },
 ]
 
-const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, likes, setLikes }) => {
+const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, 
+    likes, setLikes,
+    // edits, setEdits, 
+}) => {
     const [options, setOptions] = useState<any>(DEFAULT_OPTIONS)
     const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(editModalImg.id)}}>Like Button</Button>)
 
@@ -95,6 +98,12 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, likes, setL
         if(likes.includes(editModalImg.id)){
             setLikeButton(<Button>Cannot Like</Button>)
         }
+        // console.log("edits arr", edits)
+        // edits["edits"].forEach( (edit:any) =>{
+        //     if(edit.img === editModalImg.id) {
+        //         setOptions(edit.options)
+        //     }
+        // })
     }, [])
 
     const handleClose = (e:any) => {
@@ -158,6 +167,31 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, likes, setL
         setLikeButton(<Button>Cannot Like</Button>)
     }
 
+    async function postEdit(image_id:string, options:any) {
+        try{
+            const body = {
+                image: image_id,
+                options: options,
+            }
+            await fetch('/user/edits', {
+                method: 'POST',
+                headers: { 
+                    token: localStorage.token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+        } catch(error){
+            console.error(error.message)
+        }
+    }
+
+    const handleSaveEdits = (image_id:string, options:any) => {
+        postEdit(image_id, options);
+    }
+
+
+
     return (
         <Modal
             open= {Boolean(editModalImg)}
@@ -174,6 +208,9 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, likes, setL
                     <img src={editModalImg.urls.regular} className="photo-modal-img" style={getImageEdits()}/>
                 </Container>
                 {likeButton}
+                <Button 
+                    onClick={() => {handleSaveEdits(editModalImg.id, options)}}
+                >Save Edits</Button>
                 <div className="filters">
                     {options.map((option:any, idx:number) =>{
                         return (
@@ -203,6 +240,8 @@ interface Props {
     setEditModalImg: any,
     likes: any,
     setLikes: any,
+    // edits: string[],
+    // setEdits: any,
 }
 
 export default EditModal

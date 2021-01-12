@@ -7,13 +7,10 @@ import EditModal from './edit_modal';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     const [username, setUserame] = useState("");
-    const [likes, setLikes] = useState<any>([])
+    const [likes, setLikes] = useState<string[]>([])
+    const [edits, setEdits] = useState<any>([])
     const [modalImg, setModalImg] = useState<any>(null)
     const [editModalImg, setEditModalImg] = useState<any>(null)
-
-    // useEffect(() => {
-    //     console.log(modalImg)
-    // }, [modalImg])
 
     async function getUsername() {
         try {
@@ -39,7 +36,20 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                 return imgObj.image
             })
             setLikes(likesArr)
-            // console.log(likes)
+        } catch (error){
+            console.error(error.message)
+        }
+    }
+
+    async function getUserEdits() {
+        try{
+            const res = await fetch("/user/edits", {
+                method: 'GET',
+                headers: { token: localStorage.token },
+            })
+            const parseRes = await res.json()
+            console.log(parseRes)
+            setEdits(parseRes)
         } catch (error){
             console.error(error.message)
         }
@@ -48,6 +58,7 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     useEffect( () => {
         getUsername()
         getUserLikes()
+        getUserEdits()
     }, [])
 
     useEffect( () => {
@@ -56,6 +67,13 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
             console.log("got user likes")
         }
     }, [likes])
+
+    useEffect( () => {
+        if(edits.length === 0){
+            getUserEdits()
+            console.log("got user edits")
+        }
+    }, [edits])
     
     const logout = (e:any) => {
         e.preventDefault();
@@ -81,6 +99,8 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                     setEditModalImg={setEditModalImg} 
                     likes={likes} 
                     setLikes={setLikes}
+                    // edits={edits}
+                    // setEdits={setEdits}
                 />}
             </div>
         </Fragment>
