@@ -44,19 +44,17 @@ userRouter.get('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0,
         res.status(500).send("Server Error");
     }
 }));
-// userRouter.post('/edits', userAuth, async (req, res) => {
-//     try{
-//         const { image } = req.body;
-//         const newLike = await userPool.query(
-//             "INSERT INTO likes (image, liker_id) VALUES ($1, $2) RETURNING *",
-//             [ image, req.user]
-//         );
-//         res.json(newLike.rows[0])
-//     } catch(err){
-//         console.error(err.message)
-//         res.status(500).send("Server Error")
-//     }
-// } )
+userRouter.post('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
+    try {
+        const { image, options } = req.body;
+        const newEdit = yield userPool.query("INSERT INTO edits (image, options) VALUES ($1, $2) RETURNING *", [image, options]);
+        res.json(newEdit);
+    }
+    catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+}));
 // userRouter.get('/edits', userAuth, async (req, res) => {
 //     try{
 //         const likes = await userPool.query("SELECT image FROM likes WHERE liker_id =$1", [req.user])

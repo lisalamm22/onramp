@@ -2,8 +2,8 @@ CREATE DATABASE photogal;
 
 --DROP TABLE IF EXISTS users;
 --DROP TABLE IF EXISTS likes;
+--DROP TABLE IF EXISTS edits;
 
---set extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE users(
