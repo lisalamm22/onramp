@@ -5,13 +5,39 @@ import Container from '@material-ui/core/Container';
 import '../stylesheets/modal.css';
 import { Button } from '@material-ui/core';
 
-const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg}) => {
+const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, likes, setLikes}) => {
     const handleClose = (e:any) => {
-        console.log(modalImg)
+        console.log(modalImg.id)
         console.log(e)
         if(e.target.classList.contains('MuiBackdrop-root')){
             setModalImg(null)
         }
+    }
+
+    async function postLike(image_id:string) {
+        try{
+            const body = {
+                // user: ,
+                image: image_id,
+            }
+            // console.log('Body')
+            // console.log(JSON.stringify(body))
+            const res = await fetch('/user/likes', {
+                method: 'POST',
+                headers: { 
+                    token: localStorage.token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+            console.log(res)
+        } catch(error){
+            console.error(error.message)
+        }
+    }
+
+    const handleLike = (image_id:string) => {
+        postLike(image_id)
     }
 
     return (
@@ -37,6 +63,7 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg}) 
                 </Container>
 
                 <nav className="options-nav">
+                    <Button onClick={() => {handleLike(modalImg.id)}}>Like Button</Button>
                     <p>{`${modalImg.likes} Likes`}</p> 
                     <p>{`${modalImg.downloads} Downloads`}</p> 
                     <Button onClick={()=>{
@@ -57,6 +84,8 @@ interface Props {
     modalImg: any,
     setModalImg: any,
     setEditModalImg: any,
+    likes: any,
+    setLikes: any,
 }
 
 export default PhotoModal

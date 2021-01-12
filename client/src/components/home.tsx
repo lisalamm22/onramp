@@ -39,7 +39,7 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                 return imgObj.image
             })
             setLikes(likesArr)
-            console.log(likes)
+            // console.log(likes)
         } catch (error){
             console.error(error.message)
         }
@@ -67,9 +67,20 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
             <h3>WELCOME BACK, {username.toUpperCase()}</h3>
             <Button onClick={e => logout(e)}>Logout</Button>
             <div>
-                <Gallery setModalImg={setModalImg}/>
-                {modalImg && <PhotoModal modalImg={modalImg} setModalImg={setModalImg} setEditModalImg={setEditModalImg}/>}
-                {editModalImg && <EditModal editModalImg={editModalImg} setEditModalImg={setEditModalImg}/>}
+                <Gallery setModalImg={setModalImg} />
+                {modalImg && <PhotoModal 
+                    modalImg={modalImg} 
+                    setModalImg={setModalImg} 
+                    setEditModalImg={setEditModalImg} 
+                    likes={likes} 
+                    setLikes={setLikes}
+                />}
+                {editModalImg && <EditModal 
+                    editModalImg={editModalImg} 
+                    setEditModalImg={setEditModalImg} 
+                    // likes={likes} 
+                    // setLikes={setLikes}
+                />}
             </div>
         </Fragment>
     )

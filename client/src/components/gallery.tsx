@@ -11,7 +11,7 @@ import '../stylesheets/gallery.css'
 // import Photo from './photo';
 
 
-const Gallery: React.FC<Props> = ({ setModalImg}) => {
+const Gallery: React.FC<Props> = ({ setModalImg }) => {
     const [images, setImages] = useState<any>([]);
     const [searchImages, setSearchImages] = useState<any>([]);
     // const [loading, setLoading] = useState<Boolean>(true);
@@ -129,7 +129,7 @@ const Gallery: React.FC<Props> = ({ setModalImg}) => {
 interface Props{
     setModalImg: any,
     // likes: any,
-    // setLikes: () => void
+    // setLikes: any
 }
 
 export default Gallery
