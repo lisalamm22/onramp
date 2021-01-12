@@ -24,5 +24,6 @@ CREATE TABLE likes(
 CREATE TABLE edits(
     id BIGSERIAL PRIMARY KEY, 
     image VARCHAR(255) NOT NULL,
-    options VARCHAR(400) NOT NULL
+    options VARCHAR(400) NOT NULL,
+    editor_id uuid REFERENCES users(user_id) NOT NULL
 );

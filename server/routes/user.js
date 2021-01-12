@@ -47,7 +47,7 @@ userRouter.get('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0,
 userRouter.post('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const { image, options } = req.body;
-        const newEdit = yield userPool.query("INSERT INTO edits (image, options) VALUES ($1, $2) RETURNING *", [image, options]);
+        const newEdit = yield userPool.query("INSERT INTO edits (image, options, editor_id) VALUES ($1, $2, $3) RETURNING *", [image, options, req.user]);
         res.json(newEdit);
     }
     catch (err) {
@@ -57,7 +57,7 @@ userRouter.post('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0
 }));
 // userRouter.get('/edits', userAuth, async (req, res) => {
 //     try{
-//         const likes = await userPool.query("SELECT image FROM likes WHERE liker_id =$1", [req.user])
+//         const edits = await userPool.query("SELECT options FROM edits WHERE liker_id =$1", [req.user])
 //         res.json({
 //             results: likes.rowCount,
 //             images: likes.rows
