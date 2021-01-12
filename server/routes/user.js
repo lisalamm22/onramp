@@ -21,10 +21,12 @@ userRouter.get("/dash", userAuth, (req, res) => __awaiter(this, void 0, void 0, 
         res.status(500).send("Server Error");
     }
 }));
-userRouter.post('/likes', (req, res) => __awaiter(this, void 0, void 0, function* () {
+userRouter.post('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const { user, image } = req.body;
-        const newLike = yield userPool.query("INSERT INTO likes (image, liker_id) VALUES ($1, $2) RETURNING *", [image, user]);
+        const { image } = req.body;
+        // console.log(image)
+        // console.log(req)
+        const newLike = yield userPool.query("INSERT INTO likes (image, liker_id) VALUES ($1, $2) RETURNING *", [image, req.user]);
         res.json(newLike.rows[0]);
     }
     catch (err) {

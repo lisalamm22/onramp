@@ -13,12 +13,14 @@ userRouter.get("/dash", userAuth, async (req, res) => {
     }
 })
 
-userRouter.post('/likes', async (req, res) => {
+userRouter.post('/likes', userAuth, async (req, res) => {
     try{
-        const { user, image } = req.body;
+        const { image } = req.body;
+        // console.log(image)
+        // console.log(req)
         const newLike = await userPool.query(
             "INSERT INTO likes (image, liker_id) VALUES ($1, $2) RETURNING *",
-            [ image, user]
+            [ image, req.user]
         );
         res.json(newLike.rows[0])
     } catch(err){
