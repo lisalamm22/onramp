@@ -27,14 +27,17 @@ userRouter.post('/likes', async (req, res) => {
     }
 } )
 
-// userRouter.get('/likes', userAuth, async (req, res) => {
-//     try{
-//         const likes = await userPool.query("SELECT image FROM likes WHERE liker_id =$1", [req.user])
-//         res.json(likes)
-//     } catch(err){
-//         console.log(err.message);
-//         res.status(500).send("Server Error")
-//     }
-// })
+userRouter.get('/likes', userAuth, async (req, res) => {
+    try{
+        const likes = await userPool.query("SELECT image FROM likes WHERE liker_id =$1", [req.user])
+        res.json({
+            results: likes.rowCount,
+            images: likes.rows
+        })
+    } catch(err){
+        console.log(err.message);
+        res.status(500).send("Server Error")
+    }
+})
 
 module.exports = userRouter
