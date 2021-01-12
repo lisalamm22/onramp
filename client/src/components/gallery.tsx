@@ -11,7 +11,7 @@ import '../stylesheets/gallery.css'
 // import Photo from './photo';
 
 
-const Gallery: React.FC<Props> = ({ setModalImg }) => {
+const Gallery: React.FC<Props> = ({ setModalImg}) => {
     const [images, setImages] = useState<any>([]);
     const [searchImages, setSearchImages] = useState<any>([]);
     // const [loading, setLoading] = useState<Boolean>(true);
@@ -36,7 +36,6 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     }, [searchImages])
     
     const fetchImages = async () => {
-        // setLoading(true)
         setSearchInput('')
         setIsSearching(false)
         setSearchPage(1)
@@ -44,23 +43,16 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
             .get(`${unsplashAPI}/photos/random?client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&count=10 `)
         const fetchedImages = await res.data;
         setImages([...images, ...fetchedImages])
-        // setLoading(false)
-        console.log('fetch images')
-        console.log(images)
     }
         
     const fetchSearchImages = async () => {
         if(searchInput !== ''){
-            // setLoading(true)
             const res = await axios
                 .get(`${unsplashAPI}/search/photos?page=${searchPage}&query=${searchInput}&client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&per_page=20 `)
             const searchRes = res.data.results
             setSearchImages([...searchImages, ...searchRes])
             let newPage = searchPage+1
             setSearchPage(newPage)
-            console.log('fetch search results')
-            console.log(searchRes)
-            // setLoading(false)
             setIsSearching(true)
         }
     }
@@ -75,26 +67,22 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
         setSearchImages([])
     }
     
-    // if(loading) return <CircularProgress size={100}/>
-    
     const getImages = () => {
         return (
             <GridList cellHeight={250} cols={3} spacing={15} >
                 {images.map((image:any,idx:number) => {
                     return (
-                    <GridListTile key={idx}
+                        <GridListTile key={idx}
                         style={{ flexGrow: 1 }}
                         cols = {(image.width/5000)}
                         className='gallery-tile'
                         onClick= {() => setModalImg(image)}>
-                        {/* onClick = {() => handleOpen(idx)}> */}
-                        {/* onClick = {e => redirectPhoto(e,image.id)}> */}
                             <img 
                                 srcSet={`${image.urls.thumb}?w=161&fit=crop&auto=format 1x, 
                                 ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
                                 src={`${image.urls.thumb}`}
                                 alt={image.description || image.alt_description}
-                            />
+                                />
                     </GridListTile>
                 )})}
             </GridList>
@@ -105,7 +93,7 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
             <GridList cellHeight={250} cols={3} spacing={15} >
                 {searchImages.map((image:any,idx:number) => {
                     return (
-                    <GridListTile key={idx}
+                        <GridListTile key={idx}
                         style={{ flexGrow: 1 }}
                         cols = {(image.width/5000)}
                         className='gallery-tile'
@@ -115,12 +103,14 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
                                 ${image.urls.thumb}?w=161&fit=crop&auto=format&dpr=2 2x`}
                                 src={`${image.urls.thumb}`}
                                 alt={image.description || image.alt_description}
-                            />
+                                />
                     </GridListTile>
                 )})}
             </GridList>
         )
     }
+    
+    // if(loading) return <CircularProgress size={100}/>
     
     return (
         <InfiniteScroll 
@@ -137,7 +127,9 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
 }
 
 interface Props{
-    setModalImg: any
+    setModalImg: any,
+    // likes: any,
+    // setLikes: () => void
 }
 
 export default Gallery

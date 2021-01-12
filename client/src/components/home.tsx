@@ -7,18 +7,19 @@ import EditModal from './edit_modal';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     const [username, setUserame] = useState("");
+    const [likes, setLikes] = useState<any>(null)
     const [modalImg, setModalImg] = useState<any>(null)
     const [editModalImg, setEditModalImg] = useState<any>(null)
 
-    useEffect(() => {
-        console.log(modalImg)
-    }, [modalImg])
+    // useEffect(() => {
+    //     console.log(modalImg)
+    // }, [modalImg])
 
     async function getUsername() {
         try {
             const res = await fetch("/user/dash", {
                 method: 'GET',
-                headers: { token: localStorage.token}
+                headers: { token: localStorage.token},
             })
             const parseRes = await res.json()
             setUserame(parseRes.user_name)
@@ -27,9 +28,33 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
         }
     }
 
+    async function getUserLikes() {
+        try{
+            const res = await fetch("/user/likes", {
+                method: 'GET',
+                headers: { token: localStorage.token },
+            })
+            const parseRes = await res.json()
+            const likesArr =parseRes.images.map( (imgObj:any) => {
+                return imgObj.image
+            })
+            setLikes(likesArr)
+            console.log(likes)
+        } catch (error){
+            console.error(error.message)
+        }
+    }
+    
     useEffect( () => {
         getUsername()
+        getUserLikes()
     }, [])
+
+    // useEffect( () => {
+    //     if(!likes){
+    //         getUserLikes()
+    //     }
+    // }, [likes])
     
     const logout = (e:any) => {
         e.preventDefault();
