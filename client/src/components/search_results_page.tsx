@@ -7,20 +7,14 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import '../stylesheets/gallery.css';
 
 const SearchResultsPage: React.FC<Props> = ({setModalImg, 
-    // searchImages, setSearchImages,
-    newSearch, setNewSearch, 
-    searchInput, setSearchInput, 
-    isSearching, setIsSearching, 
-    // searchPage, setSearchPage
-}) => {
+    setNewSearch, 
+    searchInput}) => {
     const [searchImages, setSearchImages] = useState<any>([])
     const [searchPage, setSearchPage] = useState<number>(1)
 
     useEffect(() => {
-        // if(!isSearching || newSearch){
-            setSearchImages([])
-            setSearchPage(1)
-            // }
+        setSearchImages([])
+        setSearchPage(1)
         }, [searchInput])
         
     useEffect( () => {
@@ -42,20 +36,10 @@ const SearchResultsPage: React.FC<Props> = ({setModalImg,
             setSearchImages([...searchImages, ...searchRes])
             let newPage = searchPage+1
             setSearchPage(newPage)
-            console.log("newPage", newPage)
+            console.log("next page is ", newPage)
             console.log(searchImages)
         }
     }
-    
-    // const handleSearchInput = (e:any) => {
-    //     setSearchInput(e.target.value);
-    // }
-    
-    // const handleSearch = (e:any) => {
-    //     e.preventDefault();
-    //     setNewSearch(true)
-    //     setSearchImages([])
-    // }
 
     return (
         <InfiniteScroll
@@ -86,16 +70,8 @@ const SearchResultsPage: React.FC<Props> = ({setModalImg,
 }
 
 interface Props {
-    // searchImages: any,
-    // setSearchImages: any
-    newSearch: boolean,
     setNewSearch: any,
     searchInput: any,
-    setSearchInput: any,
-    isSearching: boolean,
-    setIsSearching: any,
-    // searchPage: number,
-    // setSearchPage: any,
     setModalImg: any,
 }
 
