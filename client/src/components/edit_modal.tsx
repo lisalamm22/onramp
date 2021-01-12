@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 // import Slider from '@material-ui/core/Slider'
 import '../stylesheets/modal.css';
 import '../stylesheets/edit_modal.css';
+import { Button } from '@material-ui/core';
 
 const DEFAULT_OPTIONS = [
     {
@@ -86,7 +87,7 @@ const DEFAULT_OPTIONS = [
     },
 ]
 
-const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
+const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, likes, setLikes }) => {
     const [options, setOptions] = useState<any>(DEFAULT_OPTIONS)
 
     const handleClose = (e:any) => {
@@ -126,7 +127,28 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
         return { filter: filters.join(" ")}
     }
 
-    console.log(getImageEdits())
+    async function postLike(image_id:string) {
+        try{
+            const body = {
+                image: image_id,
+            }
+            await fetch('/user/likes', {
+                method: 'POST',
+                headers: { 
+                    token: localStorage.token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+        } catch(error){
+            console.error(error.message)
+        }
+    }
+
+    const handleLike = (image_id:string) => {
+        postLike(image_id);
+        setLikes([]);
+    }
 
     return (
         <Modal
@@ -143,8 +165,8 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
                 <Container maxWidth="lg" id="photo-modal-container">
                     <img src={editModalImg.urls.regular} className="photo-modal-img" style={getImageEdits()}/>
                 </Container>
+                <Button onClick={() => {handleLike(editModalImg.id)}}></Button>
                 <div className="filters">
-                    {/* <Slider value = {0} /> */}
                     {options.map((option:any, idx:number) =>{
                         return (
                             <div className="filter-option">
@@ -170,7 +192,9 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg }) => {
 
 interface Props {
     editModalImg: any,
-    setEditModalImg: any
+    setEditModalImg: any,
+    likes: any,
+    setLikes: any,
 }
 
 export default EditModal

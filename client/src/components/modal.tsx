@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
@@ -6,9 +6,15 @@ import '../stylesheets/modal.css';
 import { Button } from '@material-ui/core';
 
 const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, likes, setLikes}) => {
+    const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(modalImg.id)}}>Like Button</Button>)
+
+    useEffect(() => {
+        if(likes.includes(modalImg.id)){
+            setLikeButton(<Button>Cannot Like</Button>)
+        }
+    }, [])
+    
     const handleClose = (e:any) => {
-        console.log(modalImg.id)
-        console.log(e)
         if(e.target.classList.contains('MuiBackdrop-root')){
             setModalImg(null)
         }
@@ -17,12 +23,9 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
     async function postLike(image_id:string) {
         try{
             const body = {
-                // user: ,
                 image: image_id,
             }
-            // console.log('Body')
-            // console.log(JSON.stringify(body))
-            const res = await fetch('/user/likes', {
+            await fetch('/user/likes', {
                 method: 'POST',
                 headers: { 
                     token: localStorage.token,
@@ -30,14 +33,16 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
                 },
                 body: JSON.stringify(body)
             })
-            console.log(res)
         } catch(error){
             console.error(error.message)
         }
     }
 
     const handleLike = (image_id:string) => {
-        postLike(image_id)
+        console.log(likes)
+        postLike(image_id);
+        setLikes([]);
+        setLikeButton(<Button>Cannot Like</Button>)
     }
 
     return (
@@ -63,7 +68,9 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
                 </Container>
 
                 <nav className="options-nav">
-                    <Button onClick={() => {handleLike(modalImg.id)}}>Like Button</Button>
+                    {/* {likes.includes(modalImg.id) ? <Button>Cannot Like</Button> :
+                        <Button onClick={() => {handleLike(modalImg.id)}}>Like Button</Button>} */}
+                    {likeButton}
                     <p>{`${modalImg.likes} Likes`}</p> 
                     <p>{`${modalImg.downloads} Downloads`}</p> 
                     <Button onClick={()=>{

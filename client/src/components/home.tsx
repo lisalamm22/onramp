@@ -7,7 +7,7 @@ import EditModal from './edit_modal';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     const [username, setUserame] = useState("");
-    const [likes, setLikes] = useState<any>(null)
+    const [likes, setLikes] = useState<any>([])
     const [modalImg, setModalImg] = useState<any>(null)
     const [editModalImg, setEditModalImg] = useState<any>(null)
 
@@ -50,11 +50,12 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
         getUserLikes()
     }, [])
 
-    // useEffect( () => {
-    //     if(!likes){
-    //         getUserLikes()
-    //     }
-    // }, [likes])
+    useEffect( () => {
+        if(likes.length === 0){
+            getUserLikes()
+            console.log("got user likes")
+        }
+    }, [likes])
     
     const logout = (e:any) => {
         e.preventDefault();
@@ -78,8 +79,8 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                 {editModalImg && <EditModal 
                     editModalImg={editModalImg} 
                     setEditModalImg={setEditModalImg} 
-                    // likes={likes} 
-                    // setLikes={setLikes}
+                    likes={likes} 
+                    setLikes={setLikes}
                 />}
             </div>
         </Fragment>
