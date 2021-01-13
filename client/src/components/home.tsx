@@ -1,9 +1,10 @@
 import { FunctionComponent, Fragment, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import Gallery  from './gallery';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import PhotoModal from './modal';
 import EditModal from './edit_modal';
+import Navbar from './navbar';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     const [username, setUserame] = useState("");
@@ -69,16 +70,15 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
         }
     }, [likes])
     
-    const logout = (e:any) => {
-        e.preventDefault();
-        localStorage.removeItem("token")
-        setAuthProp(false)
-    }
+    // const logout = (e:any) => {
+    //     e.preventDefault();
+    //     localStorage.removeItem("token")
+    //     setAuthProp(false)
+    // }
 
     return(
         <Fragment>
-            <h3>WELCOME BACK, {username.toUpperCase()}</h3>
-            <Button onClick={e => logout(e)}>Logout</Button>
+            <Navbar username={username} setAuthProp={setAuthProp}></Navbar>
             <div>
                 <Gallery 
                     setModalImg={setModalImg}
