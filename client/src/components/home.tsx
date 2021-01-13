@@ -62,7 +62,6 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     useEffect( () => {
         if(!likes){
             getUserLikes()
-            console.log("got user likes")
         }
     }, [likes])
     
