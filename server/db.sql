@@ -18,6 +18,7 @@ INSERT INTO users (user_name, user_email, user_password) VALUES ('demo', 'de@mo.
 CREATE TABLE likes(
     id BIGSERIAL PRIMARY KEY,
     image VARCHAR(255) NOT NULL,
+    imagelink VARCHAR(400) NOT NULL,
     liker_id uuid REFERENCES users(user_id) NOT NULL
 );
 

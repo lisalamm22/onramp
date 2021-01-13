@@ -14,10 +14,10 @@ userRouter.get("/dash", userAuth, async (req, res) => {
 
 userRouter.post('/likes', userAuth, async (req, res) => {
     try{
-        const { image } = req.body;
+        const { image, imagelink } = req.body;
         const newLike = await userPool.query(
-            "INSERT INTO likes (image, liker_id) VALUES ($1, $2) RETURNING *",
-            [ image, req.user]
+            "INSERT INTO likes (image, imagelink, liker_id) VALUES ($1, $2, $3) RETURNING *",
+            [ image,imagelink, req.user]
         );
         res.json(newLike.rows[0])
     } catch(err){
@@ -28,7 +28,7 @@ userRouter.post('/likes', userAuth, async (req, res) => {
 
 userRouter.get('/likes', userAuth, async (req, res) => {
     try{
-        const likes = await userPool.query("SELECT image FROM likes WHERE liker_id =$1", [req.user])
+        const likes = await userPool.query("SELECT image, imagelink FROM likes WHERE liker_id =$1", [req.user])
         res.json({
             results: likes.rowCount,
             images: likes.rows

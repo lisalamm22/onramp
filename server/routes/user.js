@@ -22,8 +22,8 @@ userRouter.get("/dash", userAuth, (req, res) => __awaiter(this, void 0, void 0, 
 }));
 userRouter.post('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const { image } = req.body;
-        const newLike = yield userPool.query("INSERT INTO likes (image, liker_id) VALUES ($1, $2) RETURNING *", [image, req.user]);
+        const { image, imagelink } = req.body;
+        const newLike = yield userPool.query("INSERT INTO likes (image, imagelink, liker_id) VALUES ($1, $2, $3) RETURNING *", [image, imagelink, req.user]);
         res.json(newLike.rows[0]);
     }
     catch (err) {
@@ -33,7 +33,7 @@ userRouter.post('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0
 }));
 userRouter.get('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const likes = yield userPool.query("SELECT image FROM likes WHERE liker_id =$1", [req.user]);
+        const likes = yield userPool.query("SELECT image, imagelink FROM likes WHERE liker_id =$1", [req.user]);
         res.json({
             results: likes.rowCount,
             images: likes.rows
