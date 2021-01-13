@@ -48,6 +48,17 @@ userRouter.get('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0,
         res.status(500).send("Server Error");
     }
 }));
+userRouter.delete('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
+    try {
+        const { image } = req.body;
+        const results = yield userPool.query("DELETE FROM likes WHERE liker_id = $1 AND image = $2", [req.user, image]);
+        res.status(204).json({ status: 'success' });
+    }
+    catch (err) {
+        console.log(err.message);
+        res.status(500).send("Server Error");
+    }
+}));
 userRouter.post('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const { image, imagelink, options } = req.body;

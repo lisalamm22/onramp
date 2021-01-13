@@ -43,6 +43,16 @@ userRouter.get('/likes', userAuth, async (req, res) => {
     }
 })
 
+userRouter.delete('/likes', userAuth, async (req, res) => {
+    try{
+        const { image } = req.body
+        const results = await userPool.query("DELETE FROM likes WHERE liker_id = $1 AND image = $2", [req.user, image])
+        res.status(204).json({status: 'success'})
+    } catch(err){
+        console.log(err.message)
+        res.status(500).send("Server Error")
+    }
+})
 
 userRouter.post('/edits', userAuth, async (req, res) => {
     try{
