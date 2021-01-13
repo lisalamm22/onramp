@@ -29,3 +29,6 @@ CREATE TABLE edits(
     options VARCHAR(2000) NOT NULL,
     editor_id uuid REFERENCES users(user_id) NOT NULL
 );
+
+ALTER TABLE likes ADD description VARCHAR(1000);
+ALTER TABLE edits ADD description VARCHAR(1000);
