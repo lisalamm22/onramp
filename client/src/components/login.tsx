@@ -16,7 +16,6 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
     const [bgImg, setBGImg] = useState<any>(null)
 
     useEffect(() => {
-        console.log("fetch")
         fetchBGImage();
     }, [])
 
