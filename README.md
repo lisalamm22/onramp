@@ -147,3 +147,4 @@ A few improvements that would allow the app to run smoother and as expected incl
 1. Allowing for downloads of edited images
 2. Quicker loading of images (either from a local cache or compressed)
 3. Implementing more photo editing options such as crop or rotate
+4. Creating a modal component for edited and liked pictures
