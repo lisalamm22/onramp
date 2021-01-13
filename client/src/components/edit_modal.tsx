@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
 import { Button } from '@material-ui/core';
+import { Bookmark, BookmarkBorder } from '@material-ui/icons';
+import LikeButton from './like_button';
 import '../stylesheets/modal.css';
 import '../stylesheets/edit_modal.css';
 
@@ -88,20 +90,10 @@ const DEFAULT_OPTIONS = [
 
 const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, 
     likes, setLikes,
-    // edits, setEdits, 
 }) => {
     const [options, setOptions] = useState<any>(DEFAULT_OPTIONS)
-    const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(editModalImg.id, editModalImg.urls.regular)}}>Like Button</Button>)
+    const [saveEdits, setSaveEdits] = useState<any>(<Fragment><BookmarkBorder/>Save</Fragment>)
 
-    useEffect(() => {
-        const likedImgs = likes.map((like:any) =>{
-            return like.image
-        })
-        console.log("likedImgs",likedImgs)
-        if(likedImgs.includes(editModalImg.id)){
-            setLikeButton(<Button>Cannot Like</Button>)
-        }
-    }, [])
 
     const handleClose = (e:any) => {
         console.log(editModalImg)
@@ -140,30 +132,6 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
         return { filter: filters.join(" ")}
     }
 
-    async function postLike(image_id:string, imagelink:string) {
-        try{
-            const body = {
-                image: image_id,
-                imagelink: imagelink,
-            }
-            await fetch('/user/likes', {
-                method: 'POST',
-                headers: { 
-                    token: localStorage.token,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body)
-            })
-        } catch(error){
-            console.error(error.message)
-        }
-    }
-
-    const handleLike = (image_id:string, imagelink:string) => {
-        postLike(image_id,imagelink);
-        setLikes(null);
-        setLikeButton(<Button>Cannot Like</Button>)
-    }
 
     async function postEdit(image_id:string, imagelink:string, options:any) {
         try{
@@ -212,10 +180,13 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
                     <img src={editModalImg.urls.regular} className="photo-modal-img" style={getImageEdits()}/>
                 </Container>
                 <nav className="options-nav">
-                {likeButton}
+                <LikeButton image={editModalImg} likes={likes} setLikes={setLikes}/>
                 <Button 
-                    onClick={() => {handleSaveEdits(editModalImg.id, editModalImg.urls.regular, getImageEdits())}}
-                >Save Edits</Button>
+                    onClick={() => {
+                        setSaveEdits(<Fragment><Bookmark/>Saved!</Fragment>)
+                        handleSaveEdits(editModalImg.id, editModalImg.urls.regular, getImageEdits())
+                    }}
+                >{saveEdits}</Button>
                 </nav>
                 <div className="filters">
                     {options.map((option:any, idx:number) =>{
