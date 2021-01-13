@@ -1,53 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
 import '../stylesheets/modal.css';
 import { Button } from '@material-ui/core';
+import { Edit, CloudDownload } from '@material-ui/icons';
+import LikeButton from './like_button';
+
 
 const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, likes, setLikes}) => {
-    const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(modalImg.id, modalImg.urls.regular)}}>Like Button</Button>)
+    
 
-    useEffect(() => {
-        const likedImgs = likes.map((like:any) =>{
-            return like.image
-        })
-        // console.log("likedimgs",likedImgs)
-        if(likedImgs.includes(modalImg.id)){
-            setLikeButton(<Button>Cannot Like</Button>)
-        }
-    }, [])
+
     const handleClose = (e:any) => {
         if(e.target.classList.contains('MuiBackdrop-root')){
             setModalImg(null)
         }
     }
 
-    async function postLike(image_id:string, imagelink:string) {
-        try{
-            const body = {
-                image: image_id,
-                imagelink: imagelink
-            }
-            await fetch('/user/likes', {
-                method: 'POST',
-                headers: { 
-                    token: localStorage.token,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body)
-            })
-        } catch(error){
-            console.error(error.message)
-        }
-    }
 
-    const handleLike = (image_id:string, imagelink:string) => {
-        console.log(likes)
-        postLike(image_id, imagelink);
-        setLikes(null);
-        setLikeButton(<Button>Cannot Like</Button>)
-    }
+
+
 
     return (
         <Modal
@@ -72,14 +45,14 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
                 </Container>
                 <div className="photo-modal-section">
                     <nav className="options-nav">
-                        {likeButton}
-                        <p>{`${modalImg.likes}`}</p> 
-                        <p>{`${modalImg.downloads} Downloads`}</p> 
+                        <LikeButton image={modalImg} likes={likes} setLikes={setLikes}/>
+                        {/* <p>{`${modalImg.likes}`}</p>  */}
+                        <Button><CloudDownload/>{` ${modalImg.downloads}`}</Button> 
                         <Button onClick={()=>{
                             setEditModalImg(modalImg)
                             setModalImg(null)
                         }}>
-                        Edit</Button>
+                        <Edit/>Edit</Button>
                     </nav>
                     <div className="photo-modal-description">
                         <p className="bold">{modalImg.description ? `${modalImg.description.toUpperCase()}` : ''}</p> 

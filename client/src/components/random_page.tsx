@@ -29,6 +29,7 @@ const RandomPage: React.FC<Props> = ({setModalImg}) => {
             next = {fetchImages}
             hasMore = {true}
             loader={<LinearProgress/>}
+            className="infinite-scroll"
         >
             <GridList cellHeight={250} cols={3} spacing={15} >
                 {images.map((image:any,idx:number) => {
