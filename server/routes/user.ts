@@ -38,7 +38,7 @@ userRouter.get('/likes', userAuth, async (req, res) => {
             images: likes.rows
         })
     } catch(err){
-        console.log(err.message);
+        // console.log(err.message);
         res.status(500).send("Server Error")
     }
 })
@@ -49,7 +49,7 @@ userRouter.delete('/likes', userAuth, async (req, res) => {
         const results = await userPool.query("DELETE FROM likes WHERE liker_id = $1 AND image = $2", [req.user, image])
         res.status(204).json({status: 'success'})
     } catch(err){
-        console.log(err.message)
+        // console.log(err.message)
         res.status(500).send("Server Error")
     }
 })
@@ -63,7 +63,7 @@ userRouter.post('/edits', userAuth, async (req, res) => {
         );
         res.json(newEdit)
     } catch(err){
-        console.error(err.message)
+        // console.error(err.message)
         res.status(500).send("Server Error")
     }
 } )
@@ -76,7 +76,7 @@ userRouter.get('/edits', userAuth, async (req, res) => {
             edits: edits.rows
         })
     } catch(err){
-        console.log(err.message);
+        // console.log(err.message);
         res.status(500).send("Server Error")
     }
 })

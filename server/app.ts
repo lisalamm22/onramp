@@ -23,14 +23,6 @@ app.use('/auth', require('./routes/jwtAuth'))
 
 app.use('/user', require('./routes/user'))
 
-
-// app.get('/api/users', async (req, res) => {
-//   // res.send(['Aang', 'Katara', 'Momo', 'Sokka', 'Appa']);
-//   const results = await db.query("select * from users");
-//   console.log(results)
-//   res.status(200).json('test')
-// });
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

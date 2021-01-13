@@ -44,7 +44,7 @@ userRouter.get('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0,
         });
     }
     catch (err) {
-        console.log(err.message);
+        // console.log(err.message);
         res.status(500).send("Server Error");
     }
 }));
@@ -55,7 +55,7 @@ userRouter.delete('/likes', userAuth, (req, res) => __awaiter(this, void 0, void
         res.status(204).json({ status: 'success' });
     }
     catch (err) {
-        console.log(err.message);
+        // console.log(err.message)
         res.status(500).send("Server Error");
     }
 }));
@@ -66,7 +66,7 @@ userRouter.post('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0
         res.json(newEdit);
     }
     catch (err) {
-        console.error(err.message);
+        // console.error(err.message)
         res.status(500).send("Server Error");
     }
 }));
@@ -79,7 +79,7 @@ userRouter.get('/edits', userAuth, (req, res) => __awaiter(this, void 0, void 0,
         });
     }
     catch (err) {
-        console.log(err.message);
+        // console.log(err.message);
         res.status(500).send("Server Error");
     }
 }));
