@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
-// import Slider from '@material-ui/core/Slider'
+import { Button } from '@material-ui/core';
 import '../stylesheets/modal.css';
 import '../stylesheets/edit_modal.css';
-import { Button } from '@material-ui/core';
 
 const DEFAULT_OPTIONS = [
     {
@@ -102,12 +101,6 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
         if(likedImgs.includes(editModalImg.id)){
             setLikeButton(<Button>Cannot Like</Button>)
         }
-        // console.log("edits arr", edits)
-        // edits.forEach( (edit:any) =>{
-        //     if(edit.img === editModalImg.id) {
-        //         setOptions(edit.options)
-        //     }
-        // })
     }, [])
 
     const handleClose = (e:any) => {
@@ -253,8 +246,6 @@ interface Props {
     setEditModalImg: any,
     likes: any,
     setLikes: any,
-    // edits: string[],
-    // setEdits: any,
 }
 
 export default EditModal

@@ -1,4 +1,5 @@
-import {FunctionComponent, Fragment, useState} from 'react';
+import {FunctionComponent, Fragment, useState, useEffect} from 'react';
+import axios from 'axios';
 import { RouteComponentProps } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Textfield from '@material-ui/core/TextField';
@@ -11,6 +12,22 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
         email: "",
         password: "",
     })
+    const [bgImg, setBGImg] = useState<any>(null)
+
+    useEffect(() => {
+        fetchBGImage();
+    }, [])
+
+    const unsplashAPI = "https://api.unsplash.com"
+    // const accessKey = process.env.UNSPLASH_ACCESS_KEY
+
+    const fetchBGImage = async () => {
+        const res = await axios
+            .get(`${unsplashAPI}/photos/random?client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&count=1 `)
+        const fetchedImage = await res.data[0];
+        console.log(fetchedImage)
+        setBGImg(fetchedImage)
+    }
 
     const { email, password } = inputs
 
@@ -37,7 +54,8 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
 
     return (
         <Fragment>
-            <h1>Sign In</h1>
+            <h1>SIGN IN</h1>
+            <img src={bgImg.urls.regular} alt={bgImg.description || bgImg.alt_description}/>
             <form onSubmit={onSubmit}>
                 <Textfield 
                     type="email"
