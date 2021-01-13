@@ -4,16 +4,23 @@ import { Favorite, FavoriteBorder } from '@material-ui/icons';
 
 const LikeButton: React.FC<Props> = ({image, likes, setLikes}) => {
     const [likeButton, setLikeButton] = useState<any>(
-        <Button onClick={() => {handleLike(image.id, image.urls.regular)}}>
+        <Button 
+            onClick={() => {handleLike(image.id, image.urls.regular)}}
+        >
             <FavoriteBorder />{image.likes}
         </Button>)
+
     useEffect(() => {
         const likedImgs = likes.map((like:any) =>{
             return like.image
         })
         // console.log("likedimgs",likedImgs)
         if(likedImgs.includes(image.id)){
-            setLikeButton(<Button>
+            setLikeButton(<Button
+                onClick={() => {
+                    handleUnlike()
+                }}
+            >
                 <Favorite/>{image.likes+1}
             </Button>)
         }
@@ -38,11 +45,42 @@ const LikeButton: React.FC<Props> = ({image, likes, setLikes}) => {
         }
     }
 
+    async function deleteLike(image_id:string){
+        try{
+            const body={
+                image: image_id,
+            }
+            await fetch('user/likes',{
+                method: 'DELETE',
+                headers: {
+                    token: localStorage.token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+        } catch(error) {
+            console.error(error.message)
+        }
+    }
+
     const handleLike = (image_id:string, imagelink:string) => {
-        console.log(likes)
         postLike(image_id, imagelink);
         setLikes(null);
-        setLikeButton(<Button><Favorite/>{image.likes+1}</Button>)
+        setLikeButton(<Button
+            onClick = {() => {
+                handleUnlike()
+            }}
+        ><Favorite/>{image.likes+1}</Button>)
+    }
+
+    const handleUnlike = () => {
+        deleteLike(image.id);
+        setLikes(null);
+        setLikeButton(<Button 
+            onClick = {() => {
+                handleLike(image.id, image.urls.regular)
+            }}
+        ><FavoriteBorder/>{image.likes}</Button>)
     }
 
     return (
