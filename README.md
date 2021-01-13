@@ -56,7 +56,7 @@ Photogal implements an MVC architectural design pattern with PostgresSQL hosted 
 ![alt_text](https://user-images.githubusercontent.com/68566126/104473653-33a1f800-558b-11eb-85bc-35550bc3a311.png "Photogal Login")
 ![alt_text](https://user-images.githubusercontent.com/68566126/104474668-3ea95800-558c-11eb-9e41-e6244ca746a2.png "Photogal Home")
 ![alt_text](https://user-images.githubusercontent.com/68566126/104474694-4406a280-558c-11eb-8ef1-9f5fd2d27b07.png "Photogal Search and Like")
-![alt_text](https://user-images.githubusercontent.com/68566126/104474744-4ff26480-558c-11eb-8461-80be91457d1c.png "Photogal Edit")
+![alt_text](https://user-images.githubusercontent.com/68566126/104476560-613c7080-558e-11eb-9499-7fd4059e9037.mp4 "Photogal Edit")
 
 
 #### UI Design
