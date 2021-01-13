@@ -23,6 +23,10 @@ userRouter.get("/dash", userAuth, (req, res) => __awaiter(this, void 0, void 0, 
 userRouter.post('/likes', userAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const { image, imagelink } = req.body;
+        const likes = yield userPool.query("SELECT * FROM likes WHERE liker_id = $1 AND image = $2", [req.user, image]);
+        if (likes.rows.length !== 0) {
+            return res.status(401).send("User already likes photo");
+        }
         const newLike = yield userPool.query("INSERT INTO likes (image, imagelink, liker_id) VALUES ($1, $2, $3) RETURNING *", [image, imagelink, req.user]);
         res.json(newLike.rows[0]);
     }
