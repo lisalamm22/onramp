@@ -9,18 +9,12 @@ import LikeButton from './like_button';
 
 
 const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, likes, setLikes}) => {
-    
-
 
     const handleClose = (e:any) => {
         if(e.target.classList.contains('MuiBackdrop-root')){
             setModalImg(null)
         }
     }
-
-
-
-
 
     return (
         <Modal
@@ -46,7 +40,6 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
                 <div className="photo-modal-section">
                     <nav className="options-nav">
                         <LikeButton image={modalImg} likes={likes} setLikes={setLikes}/>
-                        {/* <p>{`${modalImg.likes}`}</p>  */}
                         <Button><CloudDownload/>{` ${modalImg.downloads}`}</Button> 
                         <Button onClick={()=>{
                             setEditModalImg(modalImg)

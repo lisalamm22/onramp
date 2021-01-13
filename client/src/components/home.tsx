@@ -1,7 +1,6 @@
 import { FunctionComponent, Fragment, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import Gallery  from './gallery';
-// import Button from '@material-ui/core/Button';
 import PhotoModal from './modal';
 import EditModal from './edit_modal';
 import Navbar from './navbar';
@@ -34,9 +33,6 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
             })
             const parseRes = await res.json()
             const likesArr =parseRes.images
-            // .map( (imgObj:any) => {
-            //     return imgObj.image
-            // })
             setLikes(likesArr)
         } catch (error){
             console.error(error.message)
@@ -70,12 +66,6 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
         }
     }, [likes])
     
-    // const logout = (e:any) => {
-    //     e.preventDefault();
-    //     localStorage.removeItem("token")
-    //     setAuthProp(false)
-    // }
-
     return(
         <Fragment>
             <Navbar username={username} setAuthProp={setAuthProp}></Navbar>
