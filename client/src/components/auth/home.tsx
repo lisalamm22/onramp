@@ -1,9 +1,9 @@
 import { FunctionComponent, Fragment, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
-import Gallery  from './gallery';
-import PhotoModal from './modal';
-import EditModal from './edit_modal';
-import Navbar from './navbar';
+import Gallery  from '../gallery';
+import PhotoModal from '../modals/modal';
+import EditModal from '../modals/edit_modal';
+import Navbar from '../navbar';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     const [username, setUserame] = useState("");

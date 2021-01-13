@@ -1,18 +1,20 @@
 import {FunctionComponent, useState, useEffect} from 'react';
 import axios from 'axios';
-import { RouteComponentProps } from 'react-router';
-import Button from '@material-ui/core/Button';
+import {RouteComponentProps} from 'react-router';
 import Textfield from '@material-ui/core/TextField';
-import { Container, InputAdornment } from '@material-ui/core';
-import { Email, VpnKey } from '@material-ui/icons';
+import { Button, Container, InputAdornment } from '@material-ui/core';
+import { Person, Email, VpnKey } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import '../stylesheets/login.css'
+import '../../stylesheets/login.css'
 
-const Login: FunctionComponent<Props> = ({setAuthProp}) => {
+const Register: FunctionComponent<Props> = ({ setAuthProp }) => {
+
     const [inputs, setInputs] = useState({
         email: "",
         password: "",
+        username: "",
     })
+
     const [bgImg, setBGImg] = useState<any>(null)
 
     useEffect(() => {
@@ -29,66 +31,78 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
         setBGImg(fetchedImage)
     }
 
-    const { email, password } = inputs
+    const { email, password, username } = inputs
 
     const onChange = (e:any) => {
-        setInputs({ ...inputs, [e.target.name] : e.target.value})
+        setInputs({...inputs, [e.target.name] : e.target.value})
     }
 
     const onSubmit = async (e:any) => {
         e.preventDefault();
         try {
-            const body = { email, password }
-            const res = await fetch("/auth/login", {
+            const body = { email, password, name: username}
+            const res = await fetch("/auth/register", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json"},
                 body: JSON.stringify(body)
             })
             const parseRes = await res.json();
-            localStorage.setItem("token", parseRes.token);
+            localStorage.setItem("token", parseRes.token)
             setAuthProp(true)
         } catch (error) {
             console.error(error.message)
         }
     }
 
-    return (
-        <Container className="login-page">
+    return(
+        <Container className="signup-page">
             <div className="user-form-container">
                 <h1>PHOTOGAL</h1>
                 <form onSubmit={onSubmit} className="user-form">
                     <Textfield 
-                        type="email"
-                        name="email"
-                        label="EMAIL"
-                        placeholder="EMAIL"
-                        value = {email}
-                        onChange = {e=>onChange(e)}
+                        type="email" 
+                        name="email" 
+                        label="EMAIL" 
+                        placeholder="EMAIL" 
+                        value={email} 
+                        onChange={e=>onChange(e)}
                         InputProps = {{
                             startAdornment: (
-                                <InputAdornment position="start">
-                                    <Email/>
-                                </InputAdornment>
-                            )
-                        }}/>
-                    <Textfield 
-                        type="password"
-                        name="password"
-                        label="PASSWORD"
-                        placeholder="PASSWORD"
-                        value = {password}
-                        onChange = {e=>onChange(e)}
-                        InputProps = {{
+                            <InputAdornment position="start">
+                                <Email/>
+                            </InputAdornment>
+                        )}}/>
+                    <Textfield type="password" 
+                        name="password" 
+                        label="PASSWORD" 
+                        placeholder="PASSWORD" 
+                        value={password}
+                        onChange={e=>onChange(e)}
+                        InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
                                     <VpnKey/>
                                 </InputAdornment>
                             )
                         }}/>
-                    <Button onClick={onSubmit}>Login</Button>
+                    <Textfield 
+                        type="text" 
+                        name="username" 
+                        label="USERNAME" 
+                        placeholder="USERNAME" 
+                        value={username}
+                        onChange={e=>onChange(e)}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Person/>
+                                </InputAdornment>
+                            )
+                        }}/>
+                    <Button onClick={onSubmit}>Submit</Button>
                 </form>
-                <Button><Link to="/register">Sign Up</Link></Button>
-            </div>
+                <Button><Link to="/login">Sign In</Link></Button> 
+            </div> 
             {bgImg ?
                 <div className="user-form-img">
                 <img 
@@ -102,7 +116,7 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
 }
 
 interface Props extends RouteComponentProps {
-    setAuthProp: (bool:Boolean) => void
+    setAuthProp: (bool: Boolean) => void
 }
 
-export default Login
+export default Register;

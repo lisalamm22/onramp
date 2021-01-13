@@ -5,9 +5,9 @@ import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import { Button } from '@material-ui/core';
 import { Bookmark, BookmarkBorder } from '@material-ui/icons';
-import LikeButton from './like_button';
-import '../stylesheets/modal.css';
-import '../stylesheets/edit_modal.css';
+import LikeButton from '../like_button';
+import '../../stylesheets/modal.css';
+import '../../stylesheets/edit_modal.css';
 
 const DEFAULT_OPTIONS = [
     {

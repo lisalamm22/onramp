@@ -4,7 +4,7 @@ import axios from 'axios';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import '../stylesheets/gallery.css';
+import '../../stylesheets/gallery.css';
 
 
 const SearchResultsPage: React.FC<Props> = ({setModalImg, 

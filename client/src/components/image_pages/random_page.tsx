@@ -4,7 +4,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { LinearProgress } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import '../stylesheets/gallery.css'
+import '../../stylesheets/gallery.css'
 
 const RandomPage: React.FC<Props> = ({setModalImg}) => {
     const [images, setImages] = useState<any>([]);

@@ -2,9 +2,9 @@ import React, {Fragment, useState, useEffect} from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
-import Home from './components/home';
-import Login from './components/login';
-import Register from './components/register';
+import Home from './components/auth/home';
+import Login from './components/auth/login';
+import Register from './components/auth/register';
 
 function App() {
   const [isAuth, setIsAuth] = useState<Boolean>(false);

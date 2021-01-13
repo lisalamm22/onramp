@@ -1,14 +1,14 @@
 import React from 'react';
 import {useState, useEffect, Fragment} from 'react';
 import Search from './search'
-import RandomPage from './random_page';
-import SearchResultsPage from './search_results_page';
+import RandomPage from './image_pages/random_page';
+import SearchResultsPage from './image_pages/search_results_page';
 // import CircularProgress from '@material-ui/core/CircularProgress';
 // import LinearProgress from '@material-ui/core/LinearProgress';
 import { Button, Container } from '@material-ui/core';
 import '../stylesheets/gallery.css'
-import LikesPage from './likes_page';
-import EditsPage from './edits_page';
+import LikesPage from './image_pages/likes_page';
+import EditsPage from './image_pages/edits_page';
 
 
 const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits, likes, setLikes }) => {
