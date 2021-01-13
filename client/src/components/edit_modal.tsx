@@ -133,12 +133,13 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
     }
 
 
-    async function postEdit(image_id:string, imagelink:string, options:any) {
+    async function postEdit(image_id:string, imagelink:string, imageDesc:string, options:any) {
         try{
             const body = {
                 image: image_id,
                 imagelink: imagelink,
                 options: options,
+                imageDesc: imageDesc
             }
             await fetch('/user/edits', {
                 method: 'POST',
@@ -153,13 +154,13 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
         }
     }
 
-    const handleSaveEdits = (image_id:string, imagelink:string, options:any) => {
-        postEdit(image_id, imagelink, options);
+    const handleSaveEdits = (image_id:string, imagelink:string, imageDesc:string, options:any) => {
+        postEdit(image_id, imagelink, imageDesc, options);
         console.log(getImageEdits())
     }
 
-
-
+    const imageDesc = editModalImg.description || editModalImg.alt_description || ''
+    console.log(imageDesc)
     return (
         <Modal
             open= {Boolean(editModalImg)}
@@ -184,7 +185,10 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
                 <Button 
                     onClick={() => {
                         setSaveEdits(<Fragment><Bookmark/>Saved!</Fragment>)
-                        handleSaveEdits(editModalImg.id, editModalImg.urls.regular, getImageEdits())
+                        handleSaveEdits(editModalImg.id, 
+                            editModalImg.urls.regular, 
+                            imageDesc,
+                            getImageEdits())
                     }}
                 >{saveEdits}</Button>
                 </nav>

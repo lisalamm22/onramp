@@ -28,9 +28,11 @@ const LikeButton: React.FC<Props> = ({image, likes, setLikes}) => {
 
     async function postLike(image_id:string, imagelink:string) {
         try{
+            const imageDesc = image.description || image.alt_description || ''
             const body = {
                 image: image_id,
-                imagelink: imagelink
+                imagelink: imagelink,
+                imageDesc: imageDesc
             }
             await fetch('/user/likes', {
                 method: 'POST',
