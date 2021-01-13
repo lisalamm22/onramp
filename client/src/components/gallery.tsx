@@ -7,9 +7,10 @@ import SearchResultsPage from './search_results_page';
 // import LinearProgress from '@material-ui/core/LinearProgress';
 import { Button } from '@material-ui/core';
 import '../stylesheets/gallery.css'
+import EditsPage from './edits_page';
 
 
-const Gallery: React.FC<Props> = ({ setModalImg }) => {
+const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits }) => {
     // const [images, setImages] = useState<any>([]);
     // const [searchImages, setSearchImages] = useState<any>([]);
     const [newSearch, setNewSearch] = useState<boolean>(false)
@@ -54,6 +55,7 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
     
     return (
         <Fragment>
+            <EditsPage edits={edits} setEdits={setEdits}/>
             <Search handleSearchInput={handleSearchInput} handleSearch={handleSearch}/>
             <Button
                 onClick={()=>{
@@ -61,6 +63,7 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
                     setSearchInput('')
                 }}
             >Home</Button>
+            <Button>Edits</Button>
             {isSearching? searchResults : getImages()}
             
         </Fragment>
@@ -69,6 +72,8 @@ const Gallery: React.FC<Props> = ({ setModalImg }) => {
 
 interface Props{
     setModalImg: any,
+    edits: any,
+    setEdits: any,
 }
 
 export default Gallery

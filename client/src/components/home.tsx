@@ -7,10 +7,10 @@ import EditModal from './edit_modal';
 
 const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     const [username, setUserame] = useState("");
-    const [likes, setLikes] = useState<string[]>([])
+    const [likes, setLikes] = useState<any>([])
     const [edits, setEdits] = useState<any>([])
-    const [modalImg, setModalImg] = useState<any>(null)
-    const [editModalImg, setEditModalImg] = useState<any>(null)
+    const [modalImg, setModalImg] = useState<string|null>(null)
+    const [editModalImg, setEditModalImg] = useState<string|null>(null)
 
     async function getUsername() {
         try {
@@ -48,8 +48,8 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                 headers: { token: localStorage.token },
             })
             const parseRes = await res.json()
-            console.log(parseRes)
-            setEdits(parseRes)
+            console.log("parseRes",parseRes)
+            setEdits(parseRes.edits)
         } catch (error){
             console.error(error.message)
         }
@@ -68,12 +68,12 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
         }
     }, [likes])
 
-    useEffect( () => {
-        if(edits.length === 0){
-            getUserEdits()
-            console.log("got user edits")
-        }
-    }, [edits])
+    // useEffect( () => {
+    //     if(edits.length === 0){
+    //         getUserEdits()
+    //         console.log("got user edits")
+    //     }
+    // }, [edits])
     
     const logout = (e:any) => {
         e.preventDefault();
@@ -86,7 +86,11 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
             <h3>WELCOME BACK, {username.toUpperCase()}</h3>
             <Button onClick={e => logout(e)}>Logout</Button>
             <div>
-                <Gallery setModalImg={setModalImg} />
+                <Gallery 
+                    setModalImg={setModalImg}
+                    edits={edits}
+                    setEdits={setEdits}
+                />
                 {modalImg && <PhotoModal 
                     modalImg={modalImg} 
                     setModalImg={setModalImg} 
