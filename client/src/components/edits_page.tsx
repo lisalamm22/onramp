@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 // import axios from 'axios';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { Container } from '@material-ui/core';
+// import { Container } from '@material-ui/core';
 
 
 const EditsPage: React.FC<Props> = ({edits, setEdits}) => {
@@ -39,26 +39,24 @@ const EditsPage: React.FC<Props> = ({edits, setEdits}) => {
 
     return (
         <Fragment>
-            <Container maxWidth="lg">
-                <GridList cellHeight={250} cols={3} spacing={15}>
-                    {edits.map( (editImg:any, idx:number) => {
-                        return (
-                            <GridListTile
-                                key={idx}
-                                style={{ flexGrow : 1 }}
-                                cols={ Math.random() + .5 }
-                                // cols = {( editImg.imgData.width/5000 )}
-                            >
-                                <img srcSet={`${editImg.imagelink}?w=161&fit=crop&auto=format 1x, 
-                                    ${editImg.imagelink}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                                    style={JSON.parse(editImg.options)}
-                                    // alt={editImg.description || editImg.alt_description}
-                                />
-                            </GridListTile>
-                        )
-                    })}
-                </GridList>
-            </Container>
+            <GridList cellHeight={250} cols={3} spacing={15}>
+                {edits.map( (editImg:any, idx:number) => {
+                    return (
+                        <GridListTile
+                            key={idx}
+                            style={{ flexGrow : 1 }}
+                            cols={ Math.random() + .5 }
+                            // cols = {( editImg.imgData.width/5000 )}
+                        >
+                            <img srcSet={`${editImg.imagelink}?w=161&fit=crop&auto=format 1x, 
+                                ${editImg.imagelink}?w=161&fit=crop&auto=format&dpr=2 2x`}
+                                style={JSON.parse(editImg.options)}
+                                // alt={editImg.description || editImg.alt_description}
+                            />
+                        </GridListTile>
+                    )
+                })}
+            </GridList>
         </Fragment>
     )
 }

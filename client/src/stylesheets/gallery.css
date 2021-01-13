@@ -1,3 +1,7 @@
 .gallery-tile:hover{
     cursor: pointer;
 }
+
+.active-btn{
+    border: black 1px solid
+}

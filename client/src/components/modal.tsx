@@ -12,7 +12,7 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
         const likedImgs = likes.map((like:any) =>{
             return like.image
         })
-        console.log("likedimgs",likedImgs)
+        // console.log("likedimgs",likedImgs)
         if(likedImgs.includes(modalImg.id)){
             setLikeButton(<Button>Cannot Like</Button>)
         }
@@ -61,31 +61,31 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
         >
             <div className="photo-modal">
                 <header className="photo-modal-header">
-                    <p className="profile">
-                        <img src={modalImg.user.profile_image.small} className="profile-pic"/>
-                        {`${modalImg.user.name}`}
-                    </p> 
-                    <p>{modalImg.location ? (modalImg.location.name ? `Location: ${modalImg.location.name}` : '') : ''}</p> 
+                    <img src={modalImg.user.profile_image.small} className="profile-pic"/>
+                    <div className="photo-modal-header-profile">
+                        <p className="profile">{`${modalImg.user.name}`}</p> 
+                        <p>{modalImg.location ? (modalImg.location.name ? `${modalImg.location.name}` : '') : ''}</p> 
+                    </div>
                 </header>
                 <Container maxWidth="lg" id="photo-modal-container">
                     <img src={modalImg.urls.regular} className="photo-modal-img"/>
                 </Container>
-
-                <nav className="options-nav">
-                    {/* {likes.includes(modalImg.id) ? <Button>Cannot Like</Button> :
-                        <Button onClick={() => {handleLike(modalImg.id)}}>Like Button</Button>} */}
-                    {likeButton}
-                    <p>{`${modalImg.likes} Likes`}</p> 
-                    <p>{`${modalImg.downloads} Downloads`}</p> 
-                    <Button onClick={()=>{
-                        setEditModalImg(modalImg)
-                        setModalImg(null)
-                    }}>
-                    Edit</Button>
-                </nav>
-
-                <p>{modalImg.description ? `Title: ${modalImg.description}` : ''}</p> 
-                <p>{modalImg.alt_description ? `${modalImg.alt_description}` : ''}</p> 
+                <div className="photo-modal-section">
+                    <nav className="options-nav">
+                        {likeButton}
+                        <p>{`${modalImg.likes}`}</p> 
+                        <p>{`${modalImg.downloads} Downloads`}</p> 
+                        <Button onClick={()=>{
+                            setEditModalImg(modalImg)
+                            setModalImg(null)
+                        }}>
+                        Edit</Button>
+                    </nav>
+                    <div className="photo-modal-description">
+                        <p className="bold">{modalImg.description ? `${modalImg.description.toUpperCase()}` : ''}</p> 
+                        <p>{modalImg.alt_description ? `${modalImg.alt_description.toUpperCase()}` : ''}</p> 
+                    </div>
+                </div>
             </div>
         </Modal>
     )

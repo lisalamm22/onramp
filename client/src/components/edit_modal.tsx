@@ -210,14 +210,20 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
             }}
         >
             <div className="photo-modal">
-                <p className="edit-photo-title">{`EDIT THIS IMAGE BY ${editModalImg.user.name.toUpperCase()}`}</p>
+                <header className="edit-photo-title">
+                    <p>{`EDIT THIS PHOTO BY `}</p>
+                    <img src={editModalImg.user.profile_image.small} className="profile-pic"/>
+                    <p >{`${editModalImg.user.name.toUpperCase()}`}</p>
+                </header>
                 <Container maxWidth="lg" id="photo-modal-container">
                     <img src={editModalImg.urls.regular} className="photo-modal-img" style={getImageEdits()}/>
                 </Container>
+                <nav className="options-nav">
                 {likeButton}
                 <Button 
                     onClick={() => {handleSaveEdits(editModalImg.id, editModalImg.urls.regular, getImageEdits())}}
                 >Save Edits</Button>
+                </nav>
                 <div className="filters">
                     {options.map((option:any, idx:number) =>{
                         return (

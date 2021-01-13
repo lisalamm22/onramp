@@ -62,10 +62,11 @@ const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits, likes, setLike
     
     return (
         <Fragment>
-            <Container>
+            <Container maxWidth = "lg">
                 <Search handleSearchInput={handleSearchInput} handleSearch={handleSearch}/>
                 <nav>
                     <Button
+                        className="active-btn"
                         onClick={()=>{
                             setIsSearching(false)
                             setSearchInput('')
