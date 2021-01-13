@@ -12,8 +12,6 @@ import EditsPage from './edits_page';
 
 
 const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits, likes, setLikes }) => {
-    // const [images, setImages] = useState<any>([]);
-    // const [searchImages, setSearchImages] = useState<any>([]);
     const [newSearch, setNewSearch] = useState<boolean>(false)
     const [searchInput, setSearchInput] = useState<string>('')
     const [isSearching, setIsSearching] = useState<boolean>(false)
@@ -66,7 +64,7 @@ const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits, likes, setLike
                 <Search handleSearchInput={handleSearchInput} handleSearch={handleSearch}/>
                 <nav>
                     <Button
-                        className="active-btn"
+                        // id="active-btn"
                         onClick={()=>{
                             setIsSearching(false)
                             setSearchInput('')

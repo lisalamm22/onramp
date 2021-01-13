@@ -33,12 +33,9 @@ const SearchResultsPage: React.FC<Props> = ({setModalImg,
             const res = await axios
                 .get(`${unsplashAPI}/search/photos?page=${searchPage}&query=${searchInput}&client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&per_page=20 `)
             const searchRes = res.data.results
-            console.log("fetch results", searchRes)
             setSearchImages([...searchImages, ...searchRes])
             let newPage = searchPage+1
             setSearchPage(newPage)
-            console.log("next page is ", newPage)
-            console.log(searchImages)
         }
     }
 

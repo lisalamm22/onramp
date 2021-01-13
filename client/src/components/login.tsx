@@ -26,7 +26,6 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
         const res = await axios
             .get(`${unsplashAPI}/photos/random?client_id=DvjCg2G2B7CpZqGGEO0BJbxr6YpaOeuFt09A32zLnEY&count=1 `)
         const fetchedImage = await res.data[0];
-        console.log(fetchedImage)
         setBGImg(fetchedImage)
     }
 

@@ -14,7 +14,6 @@ const LikeButton: React.FC<Props> = ({image, likes, setLikes}) => {
         const likedImgs = likes.map((like:any) =>{
             return like.image
         })
-        // console.log("likedimgs",likedImgs)
         if(likedImgs.includes(image.id)){
             setLikeButton(<Button
                 onClick={() => {

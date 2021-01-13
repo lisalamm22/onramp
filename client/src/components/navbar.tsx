@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import '../stylesheets/home.css'
+import '../stylesheets/navbar.css'
 
 const Navbar: React.FC<Props> = ({username, setAuthProp}) => {
     
@@ -12,7 +12,7 @@ const Navbar: React.FC<Props> = ({username, setAuthProp}) => {
     }
 
     return (
-        <Container>
+        <Container className="nav-container">
             <nav className="main-nav">
                 <h3>WELCOME BACK, {username.toUpperCase()}</h3>
                 <Button onClick={e => logout(e)}>Logout</Button>

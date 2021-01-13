@@ -46,7 +46,6 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                 headers: { token: localStorage.token },
             })
             const parseRes = await res.json()
-            console.log("parseRes",parseRes)
             setEdits(parseRes.edits)
         } catch (error){
             console.error(error.message)

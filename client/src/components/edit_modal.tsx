@@ -97,8 +97,6 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
 
 
     const handleClose = (e:any) => {
-        console.log(editModalImg)
-        console.log(e)
         if(e.target.classList.contains('MuiBackdrop-root')){
             setEditModalImg(null)
         }
@@ -113,7 +111,6 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
                     return { ...op, value: e.target.value} 
                 }
             })
-            console.log(newOptions)
             return newOptions
         })
     }
@@ -157,11 +154,9 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
 
     const handleSaveEdits = (image_id:string, imagelink:string, imageDesc:string, options:any) => {
         postEdit(image_id, imagelink, imageDesc, options);
-        console.log(getImageEdits())
     }
 
     const imageDesc = editModalImg.description || editModalImg.alt_description || ''
-    console.log(imageDesc)
     return (
         <Modal
             open= {Boolean(editModalImg)}
