@@ -35,9 +35,6 @@ const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits, likes, setLike
     }, [newSearch])
     // const [loading, setLoading] = useState<Boolean>(true);
 
-    // const unsplashAPI = "https://api.unsplash.com"
-    // const accessKey = process.env.UNSPLASH_ACCESS_KEY
-    
     const handleSearchInput = (e:any) => {
         setSearchInput(e.target.value);
     }
@@ -48,10 +45,6 @@ const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits, likes, setLike
         setIsSearching(true)
         getSearchImages()
     }
-    
-    // const getImages = () => {
-    //     return <RandomPage setModalImg={setModalImg}/>
-    // }
 
     const getComponent = (comp:string) => {
         if(comp === 'Edits'){

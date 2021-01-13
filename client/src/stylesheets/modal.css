@@ -5,11 +5,14 @@
     border: '2px solid #000';
     outline: none;
     max-width: 80vh;
-    max-height: 90vh;
-    margin: 60px auto;
+    max-height: 95vh;
     box-shadow: 3px 5px 7p rgba(0,0,0,.5);
     justify-content: center;
     align-items: center;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
 }
 
 .photo-modal-header{
