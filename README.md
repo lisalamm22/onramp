@@ -130,12 +130,14 @@ Photogal begins with either login or sign up component. Design to be simple but 
 ![alt_text](https://user-images.githubusercontent.com/68566126/104473653-33a1f800-558b-11eb-85bc-35550bc3a311.png "Photogal Login")
 
 Once logged in, the user is redirected to the home page where random photos can be viewed. To provide a smooth experience, infinite scroll is enabled. 
+
 ![Photogal_home2](https://user-images.githubusercontent.com/68566126/104480001-0dcc2180-5592-11eb-8a3a-28d428706c5d.gif)
 
 A simple search bar placed front and center is to encourange keyword search for images. Each image card clearly annotates the details of the photo, photographer, etc. 
 ![alt_text](https://user-images.githubusercontent.com/68566126/104474694-4406a280-558c-11eb-8ef1-9f5fd2d27b07.png "Photogal Search and Like")
 
 The edit modal is built to be easy to use. Sliders for each photo quality that can be changed sit right under the photo and changes are realtime in order to provide a seamless experience. The edits can be saved to the users account via PSQL database and be viewed on the edits tab from the main page.
+
 ![Photogal_edit2](https://user-images.githubusercontent.com/68566126/104477293-ecb60180-558e-11eb-8352-60f12757b767.gif)
 
 
