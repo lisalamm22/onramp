@@ -6,24 +6,28 @@ import '../stylesheets/modal.css';
 import { Button } from '@material-ui/core';
 
 const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, likes, setLikes}) => {
-    const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(modalImg.id)}}>Like Button</Button>)
+    const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(modalImg.id, modalImg.urls.regular)}}>Like Button</Button>)
 
     useEffect(() => {
-        if(likes.includes(modalImg.id)){
+        const likedImgs = likes.map((like:any) =>{
+            return like.image
+        })
+        console.log("likedimgs",likedImgs)
+        if(likedImgs.includes(modalImg.id)){
             setLikeButton(<Button>Cannot Like</Button>)
         }
     }, [])
-    
     const handleClose = (e:any) => {
         if(e.target.classList.contains('MuiBackdrop-root')){
             setModalImg(null)
         }
     }
 
-    async function postLike(image_id:string) {
+    async function postLike(image_id:string, imagelink:string) {
         try{
             const body = {
                 image: image_id,
+                imagelink: imagelink
             }
             await fetch('/user/likes', {
                 method: 'POST',
@@ -38,10 +42,10 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
         }
     }
 
-    const handleLike = (image_id:string) => {
+    const handleLike = (image_id:string, imagelink:string) => {
         console.log(likes)
-        postLike(image_id);
-        setLikes([]);
+        postLike(image_id, imagelink);
+        setLikes(null);
         setLikeButton(<Button>Cannot Like</Button>)
     }
 

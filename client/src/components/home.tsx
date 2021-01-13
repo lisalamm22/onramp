@@ -32,9 +32,10 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                 headers: { token: localStorage.token },
             })
             const parseRes = await res.json()
-            const likesArr =parseRes.images.map( (imgObj:any) => {
-                return imgObj.image
-            })
+            const likesArr =parseRes.images
+            // .map( (imgObj:any) => {
+            //     return imgObj.image
+            // })
             setLikes(likesArr)
         } catch (error){
             console.error(error.message)
@@ -62,18 +63,11 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
     }, [])
 
     useEffect( () => {
-        if(likes.length === 0){
+        if(!likes){
             getUserLikes()
             console.log("got user likes")
         }
     }, [likes])
-
-    // useEffect( () => {
-    //     if(edits.length === 0){
-    //         getUserEdits()
-    //         console.log("got user edits")
-    //     }
-    // }, [edits])
     
     const logout = (e:any) => {
         e.preventDefault();
@@ -90,6 +84,8 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                     setModalImg={setModalImg}
                     edits={edits}
                     setEdits={setEdits}
+                    likes={likes}
+                    setLikes={setLikes}
                 />
                 {modalImg && <PhotoModal 
                     modalImg={modalImg} 
@@ -103,8 +99,6 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                     setEditModalImg={setEditModalImg} 
                     likes={likes} 
                     setLikes={setLikes}
-                    // edits={edits}
-                    // setEdits={setEdits}
                 />}
             </div>
         </Fragment>

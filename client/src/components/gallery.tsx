@@ -5,18 +5,20 @@ import RandomPage from './random_page';
 import SearchResultsPage from './search_results_page';
 // import CircularProgress from '@material-ui/core/CircularProgress';
 // import LinearProgress from '@material-ui/core/LinearProgress';
-import { Button } from '@material-ui/core';
+import { Button, Container } from '@material-ui/core';
 import '../stylesheets/gallery.css'
+import LikesPage from './likes_page';
 import EditsPage from './edits_page';
 
 
-const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits }) => {
+const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits, likes, setLikes }) => {
     // const [images, setImages] = useState<any>([]);
     // const [searchImages, setSearchImages] = useState<any>([]);
     const [newSearch, setNewSearch] = useState<boolean>(false)
     const [searchInput, setSearchInput] = useState<string>('')
     const [isSearching, setIsSearching] = useState<boolean>(false)
     const [searchResults, setSearchResults] = useState<any>(null)
+    const [component, setComponent] = useState<any>('')
 
     const getSearchImages = () => {
         return( 
@@ -47,25 +49,55 @@ const Gallery: React.FC<Props> = ({ setModalImg, edits, setEdits }) => {
         getSearchImages()
     }
     
-    const getImages = () => {
-        return <RandomPage setModalImg={setModalImg}/>
+    // const getImages = () => {
+    //     return <RandomPage setModalImg={setModalImg}/>
+    // }
+
+    const getComponent = (comp:string) => {
+        if(comp === 'Edits'){
+            return <EditsPage edits={edits} setEdits={setEdits}/>
+        }
+        else if(comp === 'Likes'){
+            return <LikesPage likes={likes} setLikes={setLikes}/>
+        }
+        else {
+            return <RandomPage setModalImg={setModalImg}/>
+        }
     }
-    
+
     // if(loading) return <CircularProgress size={100}/>
     
     return (
         <Fragment>
-            <EditsPage edits={edits} setEdits={setEdits}/>
-            <Search handleSearchInput={handleSearchInput} handleSearch={handleSearch}/>
-            <Button
-                onClick={()=>{
-                    setIsSearching(false)
-                    setSearchInput('')
-                }}
-            >Home</Button>
-            <Button>Edits</Button>
-            {isSearching? searchResults : getImages()}
-            
+            <Container>
+                <Search handleSearchInput={handleSearchInput} handleSearch={handleSearch}/>
+                <nav>
+                    <Button
+                        onClick={()=>{
+                            setIsSearching(false)
+                            setSearchInput('')
+                            setComponent('Random')
+                        }}
+                        >Home</Button>
+                    <Button
+                        onClick={()=> {
+                            setIsSearching(false)
+                            setSearchInput('')
+                            setComponent('Edits')
+                        }}
+                        >Edits</Button>
+                    <Button
+                        onClick={() => {
+                            setIsSearching(false)
+                            setSearchInput('')
+                            setComponent('Likes')
+                        }}
+                        >Likes</Button>
+
+                    <Button>Search</Button>
+                </nav>
+                {isSearching? searchResults : getComponent(component)}
+            </Container>
         </Fragment>
     )
 }
@@ -74,6 +106,8 @@ interface Props{
     setModalImg: any,
     edits: any,
     setEdits: any,
+    likes: any,
+    setLikes: any,
 }
 
 export default Gallery

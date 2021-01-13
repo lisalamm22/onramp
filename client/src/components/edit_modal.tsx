@@ -92,10 +92,14 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
     // edits, setEdits, 
 }) => {
     const [options, setOptions] = useState<any>(DEFAULT_OPTIONS)
-    const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(editModalImg.id)}}>Like Button</Button>)
+    const [likeButton, setLikeButton] = useState<any>(<Button onClick={() => {handleLike(editModalImg.id, editModalImg.urls.regular)}}>Like Button</Button>)
 
     useEffect(() => {
-        if(likes.includes(editModalImg.id)){
+        const likedImgs = likes.map((like:any) =>{
+            return like.image
+        })
+        console.log("likedImgs",likedImgs)
+        if(likedImgs.includes(editModalImg.id)){
             setLikeButton(<Button>Cannot Like</Button>)
         }
         // console.log("edits arr", edits)
@@ -143,10 +147,11 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
         return { filter: filters.join(" ")}
     }
 
-    async function postLike(image_id:string) {
+    async function postLike(image_id:string, imagelink:string) {
         try{
             const body = {
                 image: image_id,
+                imagelink: imagelink,
             }
             await fetch('/user/likes', {
                 method: 'POST',
@@ -161,9 +166,9 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
         }
     }
 
-    const handleLike = (image_id:string) => {
-        postLike(image_id);
-        setLikes([]);
+    const handleLike = (image_id:string, imagelink:string) => {
+        postLike(image_id,imagelink);
+        setLikes(null);
         setLikeButton(<Button>Cannot Like</Button>)
     }
 
