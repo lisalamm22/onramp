@@ -1,0 +1,33 @@
+a{
+    text-decoration: none;
+    color: black
+}
+
+h1{
+    font-size: 40px;
+}
+
+.login-page{
+    width: 100vw;
+    height:100vh;
+    overflow: hidden;
+}
+
+.user-form-container,
+.user-form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.user-form .MuiTextField-root{
+    padding-right: 15px;
+}
+.user-form-img{
+    width:100%;
+}
+.user-form-img>img{
+    width:100%;
+}
+

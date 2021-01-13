@@ -1,11 +1,12 @@
-import {FunctionComponent, Fragment, useState, useEffect} from 'react';
+import {FunctionComponent, useState, useEffect} from 'react';
 import axios from 'axios';
 import { RouteComponentProps } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Textfield from '@material-ui/core/TextField';
-import { InputAdornment } from '@material-ui/core';
+import { Container, InputAdornment } from '@material-ui/core';
 import { Email, VpnKey } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import '../stylesheets/login.css'
 
 const Login: FunctionComponent<Props> = ({setAuthProp}) => {
     const [inputs, setInputs] = useState({
@@ -15,6 +16,7 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
     const [bgImg, setBGImg] = useState<any>(null)
 
     useEffect(() => {
+        console.log("fetch")
         fetchBGImage();
     }, [])
 
@@ -53,42 +55,51 @@ const Login: FunctionComponent<Props> = ({setAuthProp}) => {
     }
 
     return (
-        <Fragment>
-            <h1>SIGN IN</h1>
-            <img src={bgImg.urls.regular} alt={bgImg.description || bgImg.alt_description}/>
-            <form onSubmit={onSubmit}>
-                <Textfield 
-                    type="email"
-                    name="email"
-                    label="EMAIL"
-                    placeholder="EMAIL"
-                    value = {email}
-                    onChange = {e=>onChange(e)}
-                    InputProps = {{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Email/>
-                            </InputAdornment>
-                        )
-                    }}/>
-                <Textfield 
-                    type="password"
-                    name="password"
-                    label="PASSWORD"
-                    placeholder="PASSWORD"
-                    value = {password}
-                    onChange = {e=>onChange(e)}
-                    InputProps = {{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <VpnKey/>
-                            </InputAdornment>
-                        )
-                    }}/>
-                <Button onClick={onSubmit}>Login</Button>
-            </form>
-            <Button><Link to="/register">Sign Up</Link></Button>
-        </Fragment>
+        <Container className="login-page">
+            <div className="user-form-container">
+                <h1>SIGN IN</h1>
+                <form onSubmit={onSubmit} className="user-form">
+                    <Textfield 
+                        type="email"
+                        name="email"
+                        label="EMAIL"
+                        placeholder="EMAIL"
+                        value = {email}
+                        onChange = {e=>onChange(e)}
+                        InputProps = {{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Email/>
+                                </InputAdornment>
+                            )
+                        }}/>
+                    <Textfield 
+                        type="password"
+                        name="password"
+                        label="PASSWORD"
+                        placeholder="PASSWORD"
+                        value = {password}
+                        onChange = {e=>onChange(e)}
+                        InputProps = {{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <VpnKey/>
+                                </InputAdornment>
+                            )
+                        }}/>
+                    <Button onClick={onSubmit}>Login</Button>
+                </form>
+                <Button><Link to="/register">Sign Up</Link></Button>
+            </div>
+            {bgImg ?
+                <div className="user-form-img">
+                <img 
+                    src={bgImg.urls.regular} 
+                    alt={bgImg.description || bgImg.alt_description}
+                    
+                /> </div> 
+                : null}
+        </Container>
     )
 }
 
