@@ -16,7 +16,7 @@ const LikesPage: React.FC<Props> = ({likes,setLikes}) => {
                         >
                             <img srcSet={`${likeImg.imagelink}?w=161&fit=crop&auto=format 1x, 
                                 ${likeImg.imagelink}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                                alt={likeImg.description ? likeImg.description || ''}
+                                alt={likeImg.description ? likeImg.description : ''}
                             />
                         </GridListTile>
                     )

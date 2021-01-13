@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
+import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import { Button } from '@material-ui/core';
 import { Bookmark, BookmarkBorder } from '@material-ui/icons';
@@ -165,12 +166,14 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
         <Modal
             open= {Boolean(editModalImg)}
             onClose={e => handleClose(e)}
+            onEscapeKeyDown = {e=>handleClose(e)}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps = {{
                 timeout: 500
             }}
         >
+            <Fade in={Boolean(editModalImg)}>
             <div className="photo-modal">
                 <header className="edit-photo-title">
                     <p>{`EDIT THIS PHOTO BY `}</p>
@@ -212,6 +215,7 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
                     })}
                 </div>
             </div> 
+            </Fade>
         </Modal>
     )
 }

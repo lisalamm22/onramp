@@ -8,8 +8,8 @@ const SearchBar: React.FC<Props> = ({ handleSearch, handleSearchInput }) => {
     return (
         <form className="searchbar" onSubmit={handleSearch}>
             <Textfield fullWidth 
-                // label="SEARCH"
-                placeholder="SEARCH FOR ANYTHING"
+                label="SEARCH"
+                placeholder="FOR TIGERS, PUPPIES, MOUNTAINS, SUNSETS, ANYTHING!"
                 InputProps = {{
                     startAdornment: (
                         <InputAdornment position="start">

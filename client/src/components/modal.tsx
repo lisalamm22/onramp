@@ -1,6 +1,7 @@
 import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
+import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import '../stylesheets/modal.css';
 import { Button } from '@material-ui/core';
@@ -26,6 +27,7 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
                 timeout: 500
             }}
         >
+            <Fade in={Boolean(modalImg)}>
             <div className="photo-modal">
                 <header className="photo-modal-header">
                     <img src={modalImg.user.profile_image.small} className="profile-pic"/>
@@ -53,6 +55,7 @@ const PhotoModal: React.FC<Props> = ({ modalImg, setModalImg, setEditModalImg, l
                     </div>
                 </div>
             </div>
+            </Fade>
         </Modal>
     )
 }
