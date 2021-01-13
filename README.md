@@ -69,6 +69,7 @@ A minimalist app that provides you with only the best of Unsplash photography. H
 ## Routes
 The photogal app utilizes a few different routes but the two sets that are used most often are fetching/post to likes and fetching/posting to edits.
 An example would be retrieving all edits for one user, the route would be `GET`/user/edits which would return an object similar to:
+```
 {
     "edits": [
         {
@@ -97,7 +98,7 @@ An example would be retrieving all edits for one user, the route would be `GET`/
         }
     ]
 }
-
+```
 
 ## Get Started 🌟
 To start the client:
