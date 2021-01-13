@@ -6,6 +6,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '../stylesheets/gallery.css';
 
+
 const SearchResultsPage: React.FC<Props> = ({setModalImg, 
     setNewSearch, 
     searchInput}) => {
@@ -47,6 +48,7 @@ const SearchResultsPage: React.FC<Props> = ({setModalImg,
             next = { fetchSearchImages }
             hasMore = { true }
             loader = { <LinearProgress/> }
+            className="infinite-scroll"
         >
             <GridList cellHeight={250} cols={3} spacing={15} >
                  {searchImages.map((image:any,idx:number) => {

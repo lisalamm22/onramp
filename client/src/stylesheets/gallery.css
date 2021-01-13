@@ -5,3 +5,7 @@
 .active-btn{
     border: black 1px solid
 }
+
+.infinite-scroll::-webkit-scrollbar{
+    display: none;
+}
