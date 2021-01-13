@@ -58,7 +58,7 @@ const Register: FunctionComponent<Props> = ({ setAuthProp }) => {
     return(
         <Container className="signup-page">
             <div className="user-form-container">
-                <h1>SIGN UP</h1>
+                <h1>PHOTOGAL</h1>
                 <form onSubmit={onSubmit} className="user-form">
                     <Textfield 
                         type="email" 
