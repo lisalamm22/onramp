@@ -89,7 +89,7 @@ const DEFAULT_OPTIONS = [
     },
 ]
 
-const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, 
+const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg, setEdits,
     likes, setLikes,
 }) => {
     const [options, setOptions] = useState<any>(DEFAULT_OPTIONS)
@@ -187,6 +187,7 @@ const EditModal: React.FC<Props> = ({ editModalImg, setEditModalImg,
                             editModalImg.urls.regular, 
                             imageDesc,
                             getImageEdits())
+                        setEdits(null)
                     }}
                 >{saveEdits}</Button>
                 </nav>
@@ -220,6 +221,7 @@ interface Props {
     setEditModalImg: any,
     likes: any,
     setLikes: any,
+    setEdits: any,
 }
 
 export default EditModal

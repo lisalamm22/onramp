@@ -63,6 +63,11 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
             getUserLikes()
         }
     }, [likes])
+    useEffect( () => {
+        if(!edits){
+            getUserEdits()
+        }
+    }, [edits])
     
     return(
         <Fragment>
@@ -87,6 +92,7 @@ const Home: FunctionComponent<Props> = ({setAuthProp}) => {
                     setEditModalImg={setEditModalImg} 
                     likes={likes} 
                     setLikes={setLikes}
+                    setEdits={setEdits}
                 />}
             </div>
         </Fragment>
